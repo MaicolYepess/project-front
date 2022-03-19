@@ -1,0 +1,35 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+        <!-- Main -->
+        <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
+            <div class="w-full max-w-screen-xl mx-auto">
+                <!-- Tabs -->
+                <mat-tab-group
+                    class="sm:px-2"
+                    [animationDuration]="'0'">
+    
+                    <!-- Home -->
+                    <mat-tab label="Pila del Producto">
+                        <ng-template matTabContent>
+                          <app-product-stack></app-product-stack>
+                        </ng-template>
+                    </mat-tab>
+    
+                    <!-- Budget -->
+                    <mat-tab label="Sprints">
+                        <ng-template matTabContent>
+                          <app-sprint></app-sprint>
+                        </ng-template>
+                    </mat-tab>
+    
+                    <!-- Team -->
+                    <mat-tab label="Tablero Kanban">
+                        <ng-template matTabContent>
+                           <app-scrum-board></app-scrum-board>
+                        </ng-template>
+                    </mat-tab>
+    
+                </mat-tab-group>
+            </div>
+        </div>
+</div>

@@ -1,0 +1,237 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Main -->
+    <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
+        <div class="w-full max-w-screen-xl mx-auto">
+            <!-- Tabs -->
+            <mat-tab-group class="sm:px-2" [animationDuration]="'0'">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon
+                            svgIcon="heroicons_outline:newspaper"
+                        ></mat-icon>
+                        Vista de Tarjetas
+                    </ng-template>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon
+                            svgIcon="heroicons_outline:color-swatch"
+                        ></mat-icon>
+                        Vista de Arbol
+                    </ng-template>
+                    TEST
+                </mat-tab>
+            </mat-tab-group>
+
+            <div
+                class="xl:col-span-2 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden"
+            >
+                <div class="p-6">
+                    <div
+                        class="mr-4 text-lg font-medium tracking-tight leading-6 truncate"
+                    >
+                        Elementos
+                    </div>
+                    <div class="text-secondary font-medium">
+                        1 muchos, 4 completed
+                    </div>
+                    <br />
+                    <div
+                        class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none"
+                    >
+                        <!-- <mat-form-field class="fuse-mat-no-subscript w-full sm:w-36">
+                            <mat-select
+                                [value]="'all'"
+                                (selectionChange)="filterByCategory($event)">
+                                <mat-option [value]="'all'">All</mat-option>
+                                <ng-container *ngFor="let category of categories; trackBy: trackByFn">
+                                    <mat-option [value]="category.slug">{{category.title}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field> -->
+                        <mat-form-field
+                            class="fuse-mat-no-subscript w-full sm:w-72 mt-4 sm:mt-0 sm:ml-4"
+                            [floatLabel]="'always'"
+                        >
+                            <mat-icon
+                                matPrefix
+                                class="icon-size-5"
+                                [svgIcon]="'heroicons_solid:search'"
+                            ></mat-icon>
+                            <input
+                                (input)="applyFilter($event)"
+                                placeholder="Search "
+                                matInput
+                                #input
+                            />
+                        </mat-form-field>
+                        <div>
+                            <mat-button-toggle-group>
+                                <ng-container>
+                                    <button
+                                        class="mx-6"
+                                        mat-flat-button
+                                        [color]="'primary'"
+                                        (click)="openAddItem()"
+                                    >
+                                        <mat-icon
+                                            [svgIcon]="'heroicons_outline:plus'"
+                                        ></mat-icon>
+                                        <span class="ml-2">NUEVO ITEM</span>
+                                    </button>
+                                </ng-container>
+                            </mat-button-toggle-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="overflow-x-auto mx-6">
+                    <table
+                        class="w-full bg-transparent"
+                        mat-table
+                        matSort
+                        [dataSource]="recentTransactionsDataSource"
+                        [trackBy]="trackByFn"
+                        #recentTransactionsTable
+                    >
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                            <td mat-cell *matCellDef="let element">
+                                <button
+                                    mat-icon-button
+                                    [matMenuTriggerFor]="menu"
+                                >
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item>
+                                        <mat-icon>edit</mat-icon>
+                                        <span>Editar</span>
+                                    </button>
+                                    <button mat-menu-item>
+                                        <mat-icon>delete</mat-icon>
+                                        <span>Eliminar</span>
+                                    </button>
+                                </mat-menu>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="title">
+                            <th
+                                mat-header-cell
+                                mat-sort-header
+                                *matHeaderCellDef
+                            >
+                                Título
+                            </th>
+                            <td mat-cell *matCellDef="let transaction">
+                                <span
+                                    class="pr-6 font-medium text-sm text-secondary whitespace-nowrap"
+                                >
+                                    {{ transaction.title }}
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="type">
+                            <th
+                                mat-header-cell
+                                mat-sort-header
+                                *matHeaderCellDef
+                            >
+                                Tipo
+                            </th>
+                            <td mat-cell *matCellDef="let transaction">
+                                <span class="pr-6 whitespace-nowrap">
+                                    {{ transaction.type }}
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="assignedUser">
+                            <th
+                                mat-header-cell
+                                mat-sort-header
+                                *matHeaderCellDef
+                            >
+                                Usuario designado
+                            </th>
+                            <td mat-cell *matCellDef="let transaction">
+                                <span class="pr-6 whitespace-nowrap">
+                                    {{ transaction.assignedUser }}
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Amount -->
+                        <ng-container matColumnDef="description">
+                            <th
+                                mat-header-cell
+                                mat-sort-header
+                                *matHeaderCellDef
+                            >
+                                Fecha estimación de Finalización
+                            </th>
+                            <td mat-cell *matCellDef="let transaction">
+                                <span
+                                    class="pr-6 font-medium whitespace-nowrap"
+                                >
+                                    {{ transaction.description }}
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Status -->
+                        <ng-container matColumnDef="criteriaOfAcceptance">
+                            <th
+                                mat-header-cell
+                                mat-sort-header
+                                *matHeaderCellDef
+                            >
+                                Estado
+                            </th>
+                            <td mat-cell *matCellDef="let transaction">
+                                <span
+                                    class="inline-flex items-center font-bold text-xs px-2.5 py-0.5 rounded-full tracking-wide uppercase"
+                                    [ngClass]="{
+                                        'bg-red-200 text-red-800 dark:bg-red-600 dark:text-red-50':
+                                            transaction.criteriaOfAcceptance ===
+                                            'muchos',
+                                        'bg-green-200 text-green-800 dark:bg-green-600 dark:text-green-50':
+                                            transaction.criteriaOfAcceptance ===
+                                            'completed'
+                                    }"
+                                >
+                                    <span
+                                        class="leading-relaxed whitespace-nowrap"
+                                        >{{
+                                            transaction.criteriaOfAcceptance
+                                        }}</span
+                                    >
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <tr
+                            mat-header-row
+                            *matHeaderRowDef="recentTransactionsTableColumns"
+                        ></tr>
+                        <tr
+                            class="order-row h-16"
+                            mat-row
+                            *matRowDef="
+                                let row;
+                                columns: recentTransactionsTableColumns
+                            "
+                        ></tr>
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">
+                                No data matching the filter "{{ input.value }}"
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

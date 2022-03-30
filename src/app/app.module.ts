@@ -12,9 +12,7 @@ import { mockApiServices } from 'app/mock-api';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
-import { ProductStackComponent } from './modules/options/product-stack/product-stack.component';
-import { ScrumBoardComponent } from './modules/options/scrum-board/scrum-board.component';
-import { ProductStackFormComponent } from './modules/options/product-stack/product-stack-form/product-stack-form.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -23,7 +21,7 @@ const routerConfig: ExtraOptions = {
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     imports     : [
         BrowserModule,
@@ -42,7 +40,8 @@ const routerConfig: ExtraOptions = {
         LayoutModule,
 
         // 3rd party modules that require global configuration via forRoot
-        MarkdownModule.forRoot({})
+        MarkdownModule.forRoot({}),
+         NgbModule
     ],
     bootstrap   : [
         AppComponent

@@ -1,0 +1,73 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+    <div
+        class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary"
+    >
+        <div class="text-lg font-medium">
+            {{
+                model
+                    ? "ACTUALIZAR CRITERIO DE ACEPTACIÓN"
+                    : "CREAR CRITERIO DE ACEPTACIÓN"
+            }}
+        </div>
+        <button mat-icon-button (click)="cerrar()" [tabIndex]="-1">
+            <mat-icon
+                class="text-current"
+                [svgIcon]="'heroicons_outline:x'"
+            ></mat-icon>
+        </button>
+    </div>
+
+    <form
+        class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
+        [formGroup]="releaseForm"
+        (submit)="model ? update() : guardar()"
+    >
+        <mat-form-field class="inputsForm">
+            <mat-label>Nombre Release</mat-label>
+            <input matInput formControlName="Name" autocomplete="off" />
+        </mat-form-field>
+
+        <!-- <div class="flex flex-col">
+            <mat-label>Estado</mat-label>
+            <mat-slide-toggle
+                formControlName="state"
+                (change)="toggleChange($event)"
+                >{{ textToggle }}</mat-slide-toggle
+            >
+        </div>
+        <br /> -->
+        <mat-form-field>
+            <mat-label>Descripción</mat-label>
+            <textarea
+                matInput
+                [rows]="3"
+                formControlName="description"
+                matTextareaAutosize
+            ></textarea>
+        </mat-form-field>
+
+        <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6"
+        >
+            <div class="-ml-2"></div>
+            <div class="flex items-end mt-4 sm:mt-0">
+                <button
+                    style="margin: 5px"
+                    class="ml-auto sm:ml-0"
+                    mat-stroked-button
+                    (click)="cerrar()"
+                >
+                    Cancelar
+                </button>
+                <button
+                    style="margin: 5px"
+                    class="order-first sm:order-last"
+                    mat-flat-button
+                    [color]="'primary'"
+                >
+                    {{ model ? "Actualizar" : "Guardar" }}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

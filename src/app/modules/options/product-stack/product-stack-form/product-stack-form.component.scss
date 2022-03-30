@@ -3,3 +3,23 @@
     margin-right: 10px;
     width: 235px;
 }
+
+.txtAreaForm{
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+}
+.choose::-webkit-file-upload-button {
+    color: white;
+    display: inline-block;
+    background:  var(
+        --fuse-primary
+    );
+    border: none;
+    padding: 7px 15px;
+    font-weight: 700;
+    border-radius: 3px;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 10pt;
+  }

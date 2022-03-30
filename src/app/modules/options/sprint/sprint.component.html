@@ -1,1 +1,170 @@
-<p>sprint works!</p>
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Main -->
+    <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
+        <div class="w-full max-w-screen-xl mx-auto">
+            <div
+                class="xl:col-span-2 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden"
+            >
+                <div class="p-6">
+                    <div
+                        class="mr-4 text-lg font-medium tracking-tight leading-6 truncate"
+                    >
+                        Sprints
+                    </div>
+                    <br />
+                    <div
+                        class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none"
+                    >
+                        <mat-form-field
+                            class="fuse-mat-no-subscript w-full sm:w-72 mt-4 sm:mt-0 sm:ml-4"
+                            [floatLabel]="'always'"
+                        >
+                            <mat-icon
+                                matPrefix
+                                class="icon-size-5"
+                                [svgIcon]="'heroicons_solid:search'"
+                            ></mat-icon>
+                            <input
+                                (input)="applyFilter($event)"
+                                placeholder="Search "
+                                matInput
+                                #input
+                            />
+                        </mat-form-field>
+                        <div>
+                            <mat-button-toggle-group>
+                                <ng-container>
+                                    <button
+                                        class="mx-6"
+                                        mat-flat-button
+                                        [color]="'primary'"
+                                        (click)="openAddItem()"
+                                    >
+                                        <mat-icon
+                                            [svgIcon]="'heroicons_outline:plus'"
+                                        ></mat-icon>
+                                        <span class="ml-2">NUEVO SPRINT</span>
+                                    </button>
+                                </ng-container>
+                            </mat-button-toggle-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="overflow-x-auto mx-6">
+                    <table
+                        class="w-full bg-transparent"
+                        mat-table
+                        matSort
+                        [dataSource]="recentTransactionsDataSource"
+                        [trackBy]="trackByFn"
+                        #recentTransactionsTable
+                    >
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                            <td mat-cell *matCellDef="let element">
+                                <button
+                                    mat-icon-button
+                                    [matMenuTriggerFor]="menu"
+                                >
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item>
+                                        <mat-icon>edit</mat-icon>
+                                        <span>Editar</span>
+                                    </button>
+                                    <button mat-menu-item>
+                                        <mat-icon>delete</mat-icon>
+                                        <span>Eliminar</span>
+                                    </button>
+                                </mat-menu>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name">
+                            <th
+                                mat-header-cell
+                                mat-sort-header
+                                *matHeaderCellDef
+                            >
+                                Nombre
+                            </th>
+                            <td mat-cell *matCellDef="let transaction">
+                                <span
+                                    class="pr-6 font-medium text-sm text-secondary whitespace-nowrap"
+                                >
+                                   Sprint  {{ transaction.id.id }}
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="description">
+                            <th
+                                mat-header-cell
+                                mat-sort-header
+                                *matHeaderCellDef
+                            >
+                                Descripción
+                            </th>
+                            <td mat-cell *matCellDef="let transaction">
+                                <span class="pr-6 whitespace-nowrap">
+                                    {{ transaction.description }}
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="startDate">
+                            <th
+                                mat-header-cell
+                                mat-sort-header
+                                *matHeaderCellDef
+                            >
+                                Fecha de inicio
+                            </th>
+                            <td mat-cell *matCellDef="let transaction">
+                                <span class="pr-6 whitespace-nowrap">
+                                    {{ transaction.startDate | date }}
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="totalStimate">
+                            <th
+                                mat-header-cell
+                                mat-sort-header
+                                *matHeaderCellDef
+                            >
+                                Fecha estimada de finalización
+                            </th>
+                            <td mat-cell *matCellDef="let transaction">
+                                <span
+                                    class="pr-6 font-medium whitespace-nowrap"
+                                >
+                                    {{ transaction.totalEstimate }}
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <tr
+                            mat-header-row
+                            *matHeaderRowDef="recentTransactionsTableColumns"
+                        ></tr>
+                        <tr
+                            class="order-row h-16"
+                            mat-row
+                            *matRowDef="
+                                let row;
+                                columns: recentTransactionsTableColumns
+                            "
+                        ></tr>
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">
+                                No data matching the filter "{{ input.value }}"
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

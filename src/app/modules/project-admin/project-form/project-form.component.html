@@ -1,127 +1,154 @@
 <div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
-    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
-        <div class="text-lg font-medium">{{ model ? "ACTUALIZAR PROYECTO" : "CREAR PROYECTO" }}</div>
-        <button
-            mat-icon-button
-            (click)="cerrar()"
-            [tabIndex]="-1">
+    <div
+        class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary"
+    >
+        <div class="text-lg font-medium">
+            {{ model ? "ACTUALIZAR PROYECTO" : "CREAR PROYECTO" }}
+        </div>
+        <button mat-icon-button (click)="cerrar()" [tabIndex]="-1">
             <mat-icon
                 class="text-current"
-                [svgIcon]="'heroicons_outline:x'"></mat-icon>
+                [svgIcon]="'heroicons_outline:x'"
+            ></mat-icon>
         </button>
     </div>
 
     <form
         class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
         [formGroup]="projectForm"
-        (submit)="model ? update() : guardar()">
-
+        (submit)="model ? update() : guardar()"
+    >
         <mat-form-field>
             <mat-label>Nombre</mat-label>
-            <input
-                matInput
-                formControlName="projectName" autocomplete="off">
+            <input matInput formControlName="projectName" autocomplete="off" />
         </mat-form-field>
 
         <mat-form-field>
             <mat-label>Descripción</mat-label>
             <textarea
-            matInput
-            [rows]="3"
-            formControlName="description"
-            matTextareaAutosize></textarea>
+                matInput
+                [rows]="3"
+                formControlName="description"
+                matTextareaAutosize
+            ></textarea>
         </mat-form-field>
 
-        <mat-form-field>
+     <div>
+        <mat-form-field class="inputsForm">
             <mat-label>Método de Estimación</mat-label>
-            <select matNativeControl formControlName="estimationMethod" autocomplete="off">
-                <option value="TallasdeCamisas">Tallas de Camisas</option>
-                <option value="SerieFibonacci">Serie Fibonacci</option>
-            </select>
+            <mat-select
+                matNativeControl
+                formControlName="estimationMethod"
+                autocomplete="off"
+            >
+            <mat-option value="">Seleccione un método de estimación</mat-option>
+            <mat-option *ngFor="let item of stimation, i as index" [value]="item.id">
+                {{ item.name }}
+            </mat-option>
+            </mat-select>
         </mat-form-field>
 
-        
-        <mat-form-field>
+        <mat-form-field class="inputsForm">
             <mat-label>Empresa</mat-label>
             <mat-select formControlName="companyId">
+                <mat-option value="">Seleccione una empresa</mat-option>
                 <mat-option *ngFor="let item of companies" [value]="item.nit">
-                    {{item.socialReason}}
+                    {{ item.socialReason }}
                 </mat-option>
-              </mat-select>
+            </mat-select>
+        </mat-form-field>
+     </div>
+
+       <div>
+        <mat-form-field class="inputsForm">
+            <mat-label>Fecha de Inicio</mat-label>
+            <input
+                matInput
+                autocomplete="off"
+                formControlName="startDate"
+                [matDatepicker]="picker1"
+                (focus)="picker1.open()"
+            />
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
 
+        <mat-form-field class="inputsForm">
+            <mat-label>Fecha Final</mat-label>
+            <input
+                matInput
+                autocomplete="off"
+                formControlName="endDate"
+                [matDatepicker]="picker2"
+                (focus)="picker2.open()"
+            />
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+       </div>
 
-    <mat-form-field class="flex-auto">
-        <mat-label>Fecha de Inicio</mat-label>
-        <input
-            matInput
-            autocomplete="off"
-            formControlName="startDate"
-            [matDatepicker]="picker1"
-            (focus)="picker1.open()">
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-    </mat-form-field>
-    
-    <mat-form-field class="flex-auto">
-        <mat-label>Fecha Final</mat-label>
-        <input
-            matInput
-            autocomplete="off"
-            formControlName="endDate"
-            [matDatepicker]="picker2"
-            (focus)="picker2.open()">
-     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-     <mat-datepicker #picker2 ></mat-datepicker>
-    </mat-form-field>
-
-    <div class="flex-auto">
-    <div class="flex-auto cursor-pointer"
-        (click)="twoStepToggle.toggle()">
-        <div class="leading-6 font-medium">Multiples Sprints</div>
-    </div>
-    <mat-slide-toggle
-        formControlName="multipleActiveSprints"
-        class="ml-4"
-        [color]="'primary'"
-        #twoStepToggle>
-    </mat-slide-toggle>
-</div>
-<br>
-<div class="flex-col">
-    <div class="flex-auto cursor-pointer"
-        (click)="twoStepToggle.toggle()">
-        <div class="leading-6 font-medium">Administrar Tiempo</div>
-    </div>
-    <mat-slide-toggle
-        formControlName="manageTime"
-        class="ml-4"
-        [color]="'primary'"
-        #twoStepToggle>
-    </mat-slide-toggle>
-</div>
-
-
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
-            <div class="-ml-2">
+        <div class="row">
+            <div class="inputsForm">
+                <div
+                    class="flex-auto cursor-pointer"
+                    (click)="twoStepToggle.toggle()"
+                >
+                    <div class="leading-6 font-medium">Multiples Sprints</div>
+                </div>
+                <mat-slide-toggle
+                    formControlName="multipleActiveSprints"
+                    class="ml-4"
+                    [color]="'primary'"
+                    #twoStepToggle
+                >
+                </mat-slide-toggle>
             </div>
+            <br />
+            <div class="inputsForm">
+                <div
+                    class="flex-auto cursor-pointer"
+                    (click)="twoStepToggle.toggle()"
+                >
+                    <div class="leading-6 font-medium">Administrar Tiempo</div>
+                </div>
+                <mat-slide-toggle
+                    formControlName="manageTime"
+                    class="ml-4"
+                    [color]="'primary'"
+                    #twoStepToggle
+                >
+                </mat-slide-toggle>
+            </div>
+        </div>
+
+        <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6"
+        >
+            <div class="-ml-2"></div>
             <div class="flex items-end mt-4 sm:mt-0">
                 <button
-                style="margin: 5px;"
+                    style="margin: 5px"
                     class="ml-auto sm:ml-0"
                     mat-stroked-button
-                    (click)="cerrar()">
+                    (click)="cerrar()"
+                >
                     Cancelar
                 </button>
                 <button
-                style="margin: 5px;"
-                class="order-first sm:order-last"
-                mat-flat-button
-                [color]="'primary'">
+                    style="margin: 5px"
+                    class="order-first sm:order-last"
+                    mat-flat-button
+                    [color]="'primary'"
+                >
                     {{ model ? "Actualizar" : "Guardar" }}
                 </button>
             </div>
         </div>
     </form>
 </div>
-

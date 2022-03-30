@@ -23,6 +23,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -53,6 +56,9 @@ import { MatTableModule } from '@angular/material/table';
         MatTabsModule,
         MatSortModule,
         MatTableModule,
+        DragDropModule,
+        MatDialogModule,
+        MatPaginatorModule,
     ],
     exports: [
         CommonModule,
@@ -80,6 +86,9 @@ import { MatTableModule } from '@angular/material/table';
         MatTabsModule,
         MatSortModule,
         MatTableModule,
+        DragDropModule,
+        MatDialogModule,
+        MatPaginatorModule
     ]
 })
 export class SharedModule

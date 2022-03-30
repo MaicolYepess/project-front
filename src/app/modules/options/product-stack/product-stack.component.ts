@@ -1,59 +1,81 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 import { Item } from 'app/core/models/item';
 import { BehaviorSubject } from 'rxjs';
 import { ProductStackFormComponent } from './product-stack-form/product-stack-form.component';
 import { ProductStackService } from './product-stack.service';
 
 @Component({
-  selector: 'app-product-stack',
-  templateUrl: './product-stack.component.html',
-  styleUrls: ['./product-stack.component.scss']
+    selector: 'app-product-stack',
+    templateUrl: './product-stack.component.html',
+    styleUrls: ['./product-stack.component.scss'],
 })
 export class ProductStackComponent implements OnInit {
-  recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
-  recentTransactionsTableColumns: string[] = ['actions', 'title', 'type', 'assignedUser', 'description', 'criteriaOfAcceptance'];
-  item: Item[] = [];
-  with: '850px';
-  filters: {
-    categorySlug$: BehaviorSubject<string>;
-    query$: BehaviorSubject<string>;
-    hideCompleted$: BehaviorSubject<boolean>;
-} = {
-    categorySlug$ : new BehaviorSubject('all'),
-    query$        : new BehaviorSubject(''),
-    hideCompleted$: new BehaviorSubject(false)
-};
-  constructor(private _matDialog: MatDialog,
-    private itemService: ProductStackService,) { }
+    idProject: any;
+    items: any[] = [];
+    epicaCount: any;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    recentTransactionsDataSource: MatTableDataSource<any> =
+        new MatTableDataSource();
+    recentTransactionsTableColumns: string[] = [
+        'actions',
+        'title',
+        'type',
+        'assignedUser',
+        'description',
+        'criteriaOfAcceptance',
+    ];
+    item: Item[] = [];
+    with: '850px';
+    filters: {
+        categorySlug$: BehaviorSubject<string>;
+        query$: BehaviorSubject<string>;
+        hideCompleted$: BehaviorSubject<boolean>;
+    } = {
+        categorySlug$: new BehaviorSubject('all'),
+        query$: new BehaviorSubject(''),
+        hideCompleted$: new BehaviorSubject(false),
+    };
+    constructor(
+        private _matDialog: MatDialog,
+        private itemService: ProductStackService,
+        private router: ActivatedRoute
+    ) {}
 
-  ngOnInit(): void {
-    this. getItems();
-  }
+    ngOnInit(): void {
+        this.idProject =  sessionStorage.getItem("idProject");
+        this.getItems();
+    }
 
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.recentTransactionsDataSource.filter = filterValue
+            .trim()
+            .toLowerCase();
+    }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.recentTransactionsDataSource.filter = filterValue.trim().toLowerCase();
-  }
+    openAddItem() {
+        const dialogRef = this._matDialog.open(ProductStackFormComponent, {
+            width: '850px',
+        });
+        dialogRef.afterClosed().subscribe((data) => {
+            this.getItems();
+        });
+    }
 
-  openAddItem(){
-    const dialogRef = this._matDialog.open(ProductStackFormComponent, { width: '850px'});
-    dialogRef.afterClosed().subscribe((result) => {
-    });
-  }
+    getItems() {
+        this.itemService.getItems(this.idProject).subscribe((res: any[]) => {
+            this.item = res;
+            this.recentTransactionsDataSource.data = this.item;
+            this.recentTransactionsDataSource.paginator = this.paginator;
+            this.epicaCount = res.filter((obj) => obj.type === 'Epica').length;
+        });
+    }
 
-  getItems(){
-    this.itemService.getProjects().subscribe((res: any[]) => {
-      this.item = res;
-      this.recentTransactionsDataSource.data = this.item;
-      console.log(res);
-  });
-  }
-
-  trackByFn(index: number, item: any): any
-    {
+    trackByFn(index: number, item: any): any {
         return item.id || index;
     }
 }

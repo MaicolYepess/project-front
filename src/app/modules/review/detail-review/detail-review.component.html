@@ -1,0 +1,68 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    Detalle de la revisión
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="content-detail">
+        <div class="conten-column">
+            <div class="row">
+                <div class="item-detail">
+                    <mat-label class="text">Sprint</mat-label>
+                    <p>{{sprint.sprint}}</p>
+                </div>
+                <div class="item-detail">
+                    <mat-label class="text">Fecha de la revisión</mat-label>
+                    <p>{{sprint.date}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item-form">
+                    <span class="text">Nivel de satisfacción del cliente: </span><b class="gridSizeValue">{{sprint.levelSatisfaction}}</b>
+                    <mat-slider #gridsize step="1" min="0" max="10" [value]="sprint.levelSatisfaction" disabled></mat-slider>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item-detail">
+                    <label class="text">Objetivo cumplido</label>
+                    <p *ngIf="sprint.goalAccomplished">Sí</p>
+                    <p *ngIf="!sprint.goalAccomplished">No</p>
+                </div>
+                <div class="item-detail">
+                    <mat-label class="text">Días laborados</mat-label>
+                    <p>10</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item-detail">
+                    <mat-label class="text">Fecha inicio</mat-label>
+                    <p>{{sprint.date}}</p>
+                </div>
+                <div class="item-detail">
+                    <mat-label class="text">Fecha fin</mat-label>
+                    <p>{{sprint.date}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="conten-column">
+            <mat-form-field class="item-detail">
+                <mat-label class="text">Observaciones</mat-label>
+                <textarea matInput [rows]="15" disabled>{{sprint.observations}}</textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="flex flex-col sm:flex-row sm:items-center mt-2">
+        <button
+            style="margin: 5px;"
+            class="order-first sm:order-last back"
+            mat-flat-button
+            [color]="'primary'"
+            (click)="backList()">
+            {{ "Volver" }}
+        </button>
+    </div>
+</div>

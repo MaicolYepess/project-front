@@ -29,5 +29,35 @@ export const appRoutes: Route[] = [
         children   : [
             {path: '', loadChildren: () => import('app/modules/options/options-app/options-app.module').then(m => m.OptionsAppModule)},
         ]
+    },
+    {
+        path       : 'review',
+        component  : LayoutComponent,
+        resolve    : {
+            initialData: InitialDataResolver,
+        },
+        children   : [
+            {path: '', loadChildren: () => import('app/modules/review/review.module').then(m => m.ReviewModule)},
+        ]
+    },
+    {
+        path       : 'team',
+        component  : LayoutComponent,
+        resolve    : {
+            initialData: InitialDataResolver,
+        },
+        children   : [
+            {path: '', loadChildren: () => import('app/modules/team/team.module').then(m => m.TeamModule)},
+        ]
+    },
+    {
+        path       : 'retro',
+        component  : LayoutComponent,
+        resolve    : {
+            initialData: InitialDataResolver,
+        },
+        children   : [
+            {path: '', loadChildren: () => import('app/modules/retrospectiva/retrospectiva.module').then(m => m.RetrospectivaModule)},
+        ]
     }
 ];

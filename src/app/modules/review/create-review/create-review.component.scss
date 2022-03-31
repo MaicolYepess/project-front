@@ -1,0 +1,25 @@
+.content-form {
+    display: flex;
+    @media (max-width: 600px) {
+        display: block;
+    }
+    .conten-column {
+        width: 50%;
+        padding: 2%;
+        @media (max-width: 600px) {
+            width: 100%;
+        }
+        .item-form {
+            width: 100%;
+            padding: 2% 0;
+        }
+    }
+}
+
+.option-radio {
+    padding: 0% 4%;
+}
+
+mat-slider {
+    width: 100%;
+}

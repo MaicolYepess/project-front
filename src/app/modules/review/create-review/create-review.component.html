@@ -1,0 +1,75 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    Nueva revisión del sprint
+                </h2>
+            </div>
+        </div>
+    </div>
+    <form
+        class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
+        [formGroup]="reviewForm"
+        (submit)="save()">
+        <div class="content-form">
+            <div class="conten-column">
+                <mat-form-field class="item-form">
+                    <mat-label>Sprint</mat-label>
+                    <mat-select [formControlName]="'sprint'">
+                        <mat-option  value="">Seleccione</mat-option>
+                        <mat-option value="sprint1">Sprint 1</mat-option>
+                        <mat-option value="sprint2">Sprint 2</mat-option>
+                        <mat-option value="sprint3">Sprint 3</mat-option>
+                      </mat-select>
+                </mat-form-field>
+                <mat-form-field class="item-form">
+                    <mat-label>Fecha de la revisión</mat-label>
+                    <input [formControlName]="'date'" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <div class="item-form">
+                    <span>Nivel de satisfacción del cliente: </span><b class="gridSizeValue">{{gridsize.value}}</b>
+                    <mat-slider #gridsize (change)="updateSetting($event)"
+                        step="1" min="0" max="10" [value]="gridsize"></mat-slider>
+                </div>
+                <div class="item-form">
+                    <mat-label>Objetivo cumplido</mat-label>
+                    <mat-radio-group aria-label="Select an option" formControlName="goalAccomplished">
+                        <mat-radio-button class="option-radio" value="true">Sí</mat-radio-button>
+                        <mat-radio-button class="option-radio"value="false">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+            <div class="conten-column">
+                <mat-form-field class="item-form">
+                    <mat-label>Observaciones</mat-label>
+                    <textarea matInput [formControlName]="'observations'" [rows]="15"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+            <div class="-ml-2">
+                
+            </div>
+            <div class="flex items-end mt-4 sm:mt-0">
+                <button
+                style="margin: 5px;"
+                    class="ml-auto sm:ml-0"
+                    mat-stroked-button
+                    (click)="cerrar()">
+                    Cancelar
+                </button>
+                <button
+                style="margin: 5px;"
+                    class="order-first sm:order-last"
+                    mat-flat-button
+                    [color]="'primary'"
+                    >
+                    {{ "Guardar" }}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

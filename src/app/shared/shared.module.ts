@@ -23,7 +23,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-
+import { MatSliderModule } from '@angular/material/slider';
 
 
 @NgModule({
@@ -53,6 +53,7 @@ import { MatTableModule } from '@angular/material/table';
         MatTabsModule,
         MatSortModule,
         MatTableModule,
+        MatSliderModule
     ],
     exports: [
         CommonModule,
@@ -80,6 +81,7 @@ import { MatTableModule } from '@angular/material/table';
         MatTabsModule,
         MatSortModule,
         MatTableModule,
+        MatSliderModule
     ]
 })
 export class SharedModule

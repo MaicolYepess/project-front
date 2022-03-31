@@ -10,8 +10,10 @@ import { Observable } from 'rxjs';
 })
 export class ProjectService {
   endpoint = environment.urlService;
+  endPointItems= environment.urlServiceItem;
   project = API_RESOURCES.project;
   companyCo = API_RESOURCES.company;
+  estimation = API_RESOURCES.estimationMethod;
   headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept-Language', '');
   constructor(private http: HttpClient) {}
 
@@ -34,4 +36,10 @@ export class ProjectService {
   deleteProject(id: string) {
       return this.http.delete(`${this.endpoint}${this.project}${'/'+ id }`, {headers: this.headers});
   }
+  
+  getStimationMethod(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.endPointItems}${this.estimation}`, {
+        headers: this.headers,
+    });
+}
 }

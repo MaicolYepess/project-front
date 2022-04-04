@@ -11,6 +11,7 @@ import { ReleaseComponent } from '../release/release.component';
 import { ReleaseFormComponent } from '../release/release-form/release-form.component';
 import { SprintFormComponent } from '../sprint/sprint-form/sprint-form.component';
 import { BoardsComponent } from '../scrum-board/boards/boards/boards.component';
+import { ReviewModule } from 'app/modules/review/review.module';
 
 const exampleRoutes: Route[] = [
   {
@@ -37,6 +38,7 @@ const exampleRoutes: Route[] = [
   imports: [
     CommonModule,
     SharedModule,
+    ReviewModule,
     RouterModule.forChild(exampleRoutes),
   ]
 })

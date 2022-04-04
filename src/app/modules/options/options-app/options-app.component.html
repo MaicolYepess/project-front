@@ -1,8 +1,6 @@
 <div class="flex flex-col flex-auto min-w-0">
-    
     <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
         <div class="w-full max-w-screen-xl mx-auto">
-
             <mat-tab-group class="sm:px-2" [animationDuration]="'0'">
                 <mat-tab label="Pila del Producto">
                     <ng-template matTabContent>
@@ -10,22 +8,37 @@
                     </ng-template>
                 </mat-tab>
 
-                <mat-tab label="Sprints">
-                    <ng-template matTabContent>
-                        <app-sprint></app-sprint>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon svgIcon="iconsmind:reload_3"></mat-icon>
+                        Sprints
                     </ng-template>
+                    <app-sprint></app-sprint>
                 </mat-tab>
 
-                <mat-tab label="Tablero Kanban">
-                    <ng-template matTabContent>
-                        <app-boards></app-boards>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon
+                            svgIcon="heroicons_solid:view-boards"
+                        ></mat-icon>
+                        Tablero Kanban
                     </ng-template>
+                    <app-scrum-board></app-scrum-board>
                 </mat-tab>
 
-                <mat-tab label="Release">
-                    <ng-template matTabContent>
-                        <app-release></app-release>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon svgIcon="new_releases"></mat-icon>
+                        Releases
                     </ng-template>
+                    <app-release></app-release>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon svgIcon="new_releases"></mat-icon>
+                        Reviview
+                    </ng-template>
+                    <app-list-reviews></app-list-reviews>
                 </mat-tab>
             </mat-tab-group>
         </div>

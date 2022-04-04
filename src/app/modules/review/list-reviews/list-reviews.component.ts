@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class ListReviewsComponent implements OnInit, AfterViewInit {
   reviews = new MatTableDataSource<Review>([]);
+  showCreate = false;
+  showDetail = false;
   displayedColumns: string[] = ['sprint', 'observations', 'date', 'levelSatisfaction', 'goalAccomplished', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private router: Router) { }

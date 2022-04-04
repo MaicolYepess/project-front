@@ -35,6 +35,11 @@ const routes: Route[] = [
     SharedModule,
     MatTableModule,
     MatPaginatorModule,
+  ],
+  exports: [
+    ListReviewsComponent,
+    DetailReviewComponent,
+    CreateReviewComponent
   ]
 })
 export class ReviewModule { }

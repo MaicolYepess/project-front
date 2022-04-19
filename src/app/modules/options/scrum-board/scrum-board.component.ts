@@ -1,13 +1,4 @@
-import {
-    CdkDragDrop,
-    moveItemInArray,
-    transferArrayItem,
-} from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
-
-export class Board {
-    constructor(public name: string, public columns: Column[]) {}
-}
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 export class Column {
     constructor(
@@ -20,11 +11,11 @@ export class Column {
 @Component({
     selector: 'app-scrum-board',
     templateUrl: './scrum-board.component.html',
-    styleUrls: ['./scrum-board.component.scss'],
+    encapsulation  : ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ScrumBoardComponent implements OnInit {
+export class ScrumboardComponent {
+    
     constructor() {}
-
-    ngOnInit(): void {}
 
 }

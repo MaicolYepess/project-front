@@ -3,6 +3,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Review } from 'app/core/models/review';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { CreateReviewComponent } from '../create-review/create-review.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-list-reviews',
@@ -15,7 +17,8 @@ export class ListReviewsComponent implements OnInit, AfterViewInit {
   showDetail = false;
   displayedColumns: string[] = ['sprint', 'observations', 'date', 'levelSatisfaction', 'goalAccomplished', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private _matDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.reviews.data = [
@@ -30,7 +33,11 @@ export class ListReviewsComponent implements OnInit, AfterViewInit {
   }
 
   openAddUser() {
-    this.router.navigate(['review/create']);
+    const dialogRef = this._matDialog.open(CreateReviewComponent, {
+      width: '850px',
+  });
+  dialogRef.afterClosed().subscribe((data) => {
+  });
   }
 
   openUpdate(item) {
@@ -38,7 +45,7 @@ export class ListReviewsComponent implements OnInit, AfterViewInit {
   }
 
   openDetail(item) {
-    this.router.navigate(['review/detail']);
+    this.router.navigate(['options/detail']);
   }
 
 }

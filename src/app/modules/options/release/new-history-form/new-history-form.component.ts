@@ -1,22 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-    MatDialog,
-    MatDialogRef,
-    MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
-import { Item } from 'app/core/models/item';
-import swal from 'sweetalert2';
-import { ProductStackService } from '../product-stack.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { ProductStackService } from '../../product-stack/product-stack.service';
+import swal from 'sweetalert2';
 
 @Component({
-    selector: 'app-product-stack-form',
-    templateUrl: './product-stack-form.component.html',
-    styleUrls: ['./product-stack-form.component.scss'],
+  selector: 'app-new-history-form',
+  templateUrl: './new-history-form.component.html',
+  styleUrls: ['./new-history-form.component.scss']
 })
-export class ProductStackFormComponent implements OnInit {
-    idProject: string;
+export class NewHistoryFormComponent implements OnInit {
+  idProject: string;
     releases: any;
     selectedFiles: any;
     types: any;
@@ -34,10 +29,10 @@ export class ProductStackFormComponent implements OnInit {
         'description',
     ];
     constructor(
-        public matDialogRef: MatDialogRef<ProductStackFormComponent>,
+        public matDialogRef: MatDialogRef<NewHistoryFormComponent>,
         private _formBuilder: FormBuilder,
         private _productService: ProductStackService,
-        @Inject(MAT_DIALOG_DATA) public model: Item
+        @Inject(MAT_DIALOG_DATA) public model: any
     ) {}
 
     ngOnInit(): void {
@@ -47,17 +42,7 @@ export class ProductStackFormComponent implements OnInit {
         this.getSprints();
         this.getReleases();
         this.itemForm = this._formBuilder.group({
-            projectId: [this.idProject],
-            description: [''],
-            sprintId: [''],
             type: ['', Validators.required],
-            title: [''],
-            parent: [null],
-            historyPoints: [null],
-            assignedUser: [''],
-            release: [''],
-            criteriaOfAcceptance: [''],
-            files: [null],
         });
     }
 
@@ -79,8 +64,6 @@ export class ProductStackFormComponent implements OnInit {
     getSprints(){
         this._productService.getSprintsProject(this.idProject).subscribe((res: any[]) => {
             this.sprints = res;
-            console.log(res);
-            
         });
     }
 
@@ -106,7 +89,7 @@ export class ProductStackFormComponent implements OnInit {
 
     guardar() {
         if (this.itemForm.valid) {
-            let item: Item = new Item();
+            let item: any;
             item = this.itemForm.value;
             this.saveItem(item);
         }
@@ -129,7 +112,7 @@ export class ProductStackFormComponent implements OnInit {
         // }
     }
 
-    updateProject(item: Item) {
+    updateProject(item: any) {
         //   this.projectService.updateProject(project).subscribe(
         //     (res) => {
         //         if (res) {
@@ -150,7 +133,7 @@ export class ProductStackFormComponent implements OnInit {
         // );
     }
 
-    saveItem(item: Item) {
+    saveItem(item: any) {
         debugger
         this._productService.saveItem(item).subscribe(
             (res) => {

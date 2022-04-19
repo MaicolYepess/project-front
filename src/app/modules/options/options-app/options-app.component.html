@@ -2,10 +2,12 @@
     <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
         <div class="w-full max-w-screen-xl mx-auto">
             <mat-tab-group class="sm:px-2" [animationDuration]="'0'">
-                <mat-tab label="Pila del Producto">
-                    <ng-template matTabContent>
-                        <app-product-stack></app-product-stack>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon svgIcon="heroicons_outline:menu"></mat-icon>
+                        Pila del Producto
                     </ng-template>
+                    <app-product-stack></app-product-stack>
                 </mat-tab>
 
                 <mat-tab>
@@ -23,7 +25,7 @@
                         ></mat-icon>
                         Tablero Kanban
                     </ng-template>
-                    <app-scrum-board></app-scrum-board>
+                    <scrumboard-board></scrumboard-board>
                 </mat-tab>
 
                 <mat-tab>
@@ -35,10 +37,17 @@
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
-                        <mat-icon svgIcon="new_releases"></mat-icon>
+                        <mat-icon svgIcon="heroicons_outline:collection"></mat-icon>
                         Reviview
                     </ng-template>
                     <app-list-reviews></app-list-reviews>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon svgIcon="heroicons_outline:user-group"></mat-icon>
+                        Equipo
+                    </ng-template>
+                    <app-team></app-team>
                 </mat-tab>
             </mat-tab-group>
         </div>

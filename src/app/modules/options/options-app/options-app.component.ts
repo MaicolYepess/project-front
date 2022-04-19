@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-options-app',
@@ -9,10 +9,20 @@ import { ActivatedRoute } from '@angular/router';
 export class OptionsAppComponent implements OnInit {
     idProject: any;
 
-    constructor(private router: ActivatedRoute) {}
+    constructor(private router: ActivatedRoute, 
+        private _router: Router) {}
 
     ngOnInit(): void {
         this.idProject = this.router.snapshot.paramMap.get('id') || 'null';
         sessionStorage.setItem("idProject", this.idProject);
+    }
+
+    openScrumBoard(e : any){
+        debugger
+        
+        if(e.index === 2){
+            this._router.navigate(['/scrumboard']);
+        }
+        
     }
 }

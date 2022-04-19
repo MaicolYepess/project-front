@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_RESOURCES } from 'app/core/const/api-resourses';
+import { Release } from 'app/core/models/release';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
@@ -27,25 +28,20 @@ export class ReleaseService {
       });
   }
 
-  getCompanies(): Observable<any[]> {
-      return this.http.get<any[]>(`${this.endpoint}${this.companyCo}`, {
-          headers: this.headers,
-      });
-  }
 
-  saveRelease(release: any) {
+  saveRelease(release: Release) {
       return this.http.post<any>(`${this.endpointItem}${this.release}`, release, {
           headers: this.headers,
       });
   }
 
-  updateProject(project: any) {
+  updateRelease(project: Release) {
       return this.http.put<any>(`${this.endpoint}${this.item}`, project, {
           headers: this.headers,
       });
   }
 
-  deleteProject(id: string) {
+  deleteRelease(id: string) {
       return this.http.delete(`${this.endpoint}${this.item}${'/' + id}`, {
           headers: this.headers,
       });
@@ -57,20 +53,8 @@ export class ReleaseService {
       });
   }
 
-  getTypes(): Observable<any[]> {
-      return this.http.get<any[]>(`${this.endpointItem}${this.types}`, {
-          headers: this.headers,
-      });
-  }
-
-  getEstimation(): Observable<any[]> {
-      return this.http.get<any[]>(`${this.endpointItem}${this.stimation}`, {
-          headers: this.headers,
-      });
-  }
-
-  getReleases(id : any): Observable<any> {
-       return this.http.get(`${this.endpointItem}${this.release}${'/project/' + id}`, {
+  getReleases(id : any): Observable<Release[]> {
+       return this.http.get<Release[]>(`${this.endpointItem}${this.release}${'/project/' + id}`, {
            headers: this.headers,
        });
   }

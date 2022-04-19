@@ -13,6 +13,7 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NewHistoryFormComponent } from './modules/options/release/new-history-form/new-history-form.component';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -21,7 +22,7 @@ const routerConfig: ExtraOptions = {
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     imports     : [
         BrowserModule,

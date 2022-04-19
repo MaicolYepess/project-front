@@ -27,8 +27,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
-
+import { MatTreeModule } from '@angular/material/tree';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     imports: [
@@ -61,6 +61,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         DragDropModule,
         MatDialogModule,
         MatPaginatorModule,
+        MatTreeModule,
+        MatCardModule
     ],
     exports: [
         CommonModule,
@@ -91,9 +93,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         MatSliderModule,
         DragDropModule,
         MatDialogModule,
-        MatPaginatorModule
-    ]
+        MatPaginatorModule,
+        MatTreeModule,
+        MatCardModule
+    ],
 })
-export class SharedModule
-{
-}
+export class SharedModule {}

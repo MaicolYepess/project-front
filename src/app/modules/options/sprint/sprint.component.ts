@@ -19,11 +19,11 @@ export class SprintComponent implements OnInit {
     recentTransactionsDataSource: MatTableDataSource<any> =
         new MatTableDataSource();
     recentTransactionsTableColumns: string[] = [
-        'actions',
         'name',
         'description',
         'startDate',
         'totalStimate',
+        'actions',
     ];
     filters: {
         categorySlug$: BehaviorSubject<string>;
@@ -81,5 +81,9 @@ export class SprintComponent implements OnInit {
 
     getArrayMax(array) {
         return Math.max.apply(null, array);
+    }
+
+    openUpdate(e:any){
+
     }
 }

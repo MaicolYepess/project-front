@@ -21,12 +21,12 @@ export class ProductStackComponent implements OnInit {
     recentTransactionsDataSource: MatTableDataSource<any> =
         new MatTableDataSource();
     recentTransactionsTableColumns: string[] = [
-        'actions',
         'title',
         'type',
         'assignedUser',
         'description',
         'criteriaOfAcceptance',
+        'actions'
     ];
     item: Item[] = [];
     with: '850px';
@@ -77,5 +77,9 @@ export class ProductStackComponent implements OnInit {
 
     trackByFn(index: number, item: any): any {
         return item.id || index;
+    }
+
+    openUpdate(e: any){
+
     }
 }

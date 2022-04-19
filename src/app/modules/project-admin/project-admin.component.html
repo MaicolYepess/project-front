@@ -1,6 +1,7 @@
 <div class="flex flex-col flex-auto min-w-0">
-
-    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent"
+    >
         <div class="flex-1 min-w-0">
             <!-- Breadcrumbs -->
             <!-- <div class="flex flex-wrap items-center font-medium">
@@ -10,77 +11,108 @@
             </div> -->
             <!-- Title -->
             <div class="mt-2">
-                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                <h2
+                    class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+                >
                     PROYECTOS
                 </h2>
             </div>
         </div>
     </div>
 
-<div class="flex-auto p-6 sm:p-10">        
-    <div class="mb-6 sm:mb-12">
-        <mat-button-toggle-group
-            class="flex flex-wrap -m-2">
-            <ng-container>
-                <button
-        class="mx-6"
-        mat-flat-button
-        [color]="'primary'"
-        (click)="openAddEmpresa()">
-        <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-        <span class="ml-2">CREAR PROYECTO</span>
-    </button>
-            </ng-container>
-        </mat-button-toggle-group>
-    </div>
-    <div style="padding-left: 20px;" class="flex flex-wrap">
-        <ng-container  *ngFor="let item of projects">
-            <fuse-card style="margin: 20px;" class="flex-col max-w-80 w-full px-8 pt-6 pb-4 filter-list">
-              
-                <div class="flex items-center justify-between">
-                    <div class="text-2xl font-semibold leading-tight">  
-                        <div class="text-2xl font-semibold leading-tight text-center mt-6">{{item.projectName}}</div>
-                    </div> 
-                    <div>
-                        <button
-                            mat-icon-button
-                            [matMenuTriggerFor]="listCard03Menu">
-                            <mat-icon
-                                class="icon-size-5"
-                                [svgIcon]="'heroicons_solid:dots-vertical'"></mat-icon>
-                        </button>
-                        <mat-menu #listCard03Menu="matMenu">
-                            <button mat-menu-item (click)="openUpdate(item)">Actializar</button>
-                            <button mat-menu-item (click)="openConfirmationDialog(item)">Deshabilitar</button>
-                        </mat-menu>
-                    </div>
-                </div>
-        <hr class="w-full border-t my-6">
-        <div class="flex flex-col">
-            <div class="flex items-center mt-4">
-                <span class="leading-none">Descripción: {{item.description}}</span>
-            </div>
-            <div class="flex items-center mt-4">
-                <span class="leading-none">Fecha de Inicio: {{item.startDate | date}}</span>
-            </div>
-            <div class="flex items-center mt-4">
-                <span class="leading-none">Fecha de Finalización: {{item.endDate | date}}</span>
-            </div>
-            <div class="flex items-center mt-4">
-                <span class="leading-none">Estado: {{item.status}}</span>
-            </div>
+    <div class="flex-auto p-6 sm:p-10">
+        <div class="mb-6 sm:mb-12">
+            <mat-button-toggle-group class="flex flex-wrap -m-2">
+                <ng-container>
+                    <button
+                        class="mx-6"
+                        mat-flat-button
+                        [color]="'primary'"
+                        (click)="openAddEmpresa()"
+                    >
+                        <mat-icon
+                            [svgIcon]="'heroicons_outline:plus'"
+                        ></mat-icon>
+                        <span class="ml-2">CREAR PROYECTO</span>
+                    </button>
+                </ng-container>
+            </mat-button-toggle-group>
         </div>
-        <button
-            class="px-6 mt-8"
-            mat-flat-button
-            [color]="'primary'"
-            [routerLink]="['/options/' + item.id]">
-            OPCIONES
-        </button>
-    </fuse-card>
-        </ng-container>
-            
+        <div style="padding-left: 20px" class="flex flex-wrap">
+            <ng-container *ngFor="let item of projects">
+                <fuse-card
+                    style="margin: 20px"
+                    class="flex-col max-w-80 w-full px-8 pt-6 pb-4 filter-list"
+                >
+                    <div class="flex items-center justify-between">
+                        <div class="text-2xl font-semibold leading-tight">
+                            <div
+                                class="text-2xl font-semibold leading-tight text-center mt-6"
+                            >
+                                {{ item.projectName }}
+                            </div>
+                        </div>
+                        <div>
+                            <button
+                                mat-icon-button
+                                [matMenuTriggerFor]="listCard03Menu"
+                            >
+                                <mat-icon
+                                    class="icon-size-5"
+                                    [svgIcon]="'heroicons_solid:dots-vertical'"
+                                ></mat-icon>
+                            </button>
+                            <mat-menu #listCard03Menu="matMenu">
+                                <button
+                                    mat-menu-item
+                                    (click)="openUpdate(item)"
+                                >
+                                    Actializar
+                                </button>
+                                <button
+                                    mat-menu-item
+                                    (click)="openConfirmationDialog(item)"
+                                >
+                                    Deshabilitar
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </div>
+                    <hr class="w-full border-t my-6" />
+                    <div class="flex flex-col">
+                        <div class="flex items-center mt-4">
+                            <span class="leading-none"
+                                >Descripción: {{ item.description }}</span
+                            >
+                        </div>
+                        <div class="flex items-center mt-4">
+                            <span class="leading-none"
+                                >Fecha de Inicio:
+                                {{ item.startDate | date }}</span
+                            >
+                        </div>
+                        <div class="flex items-center mt-4">
+                            <span class="leading-none"
+                                >Fecha de Finalización:
+                                {{ item.endDate | date }}</span
+                            >
+                        </div>
+                        <div class="flex items-center mt-4">
+                            <span class="leading-none"
+                                >Estado: {{ item.status }}</span
+                            >
+                        </div>
+                    </div>
+                    <button
+                        class="px-6 mt-8"
+                        mat-flat-button
+                        [color]="'primary'"
+                        [routerLink]="['/options/' + item.id]"
+                    >
+                        OPCIONES
+                    </button>
+                </fuse-card>
+            </ng-container>
+        </div>
     </div>
-</div>
-
 </div>

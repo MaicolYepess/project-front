@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReleaseService } from '../release.service';
 import swal from 'sweetalert2';
+import { Release } from 'app/core/models/release';
 
 @Component({
     selector: 'app-release-form',
@@ -10,26 +11,37 @@ import swal from 'sweetalert2';
     styleUrls: ['./release-form.component.scss'],
 })
 export class ReleaseFormComponent implements OnInit {
-    textToggle: string = 'Sin Liberar';
     idProject: string;
-    releaseForm: FormGroup;
     constructor(
         public matDialogRef: MatDialogRef<ReleaseFormComponent>,
         private _formBuilder: FormBuilder,
         private _releaseService: ReleaseService,
-        @Inject(MAT_DIALOG_DATA) public model: any
-    ) {}
+        @Inject(MAT_DIALOG_DATA) public model: Release
+    ) {
+        if (this.model !== null) {
+            const setModel = {
+                description: model.description,
+                Name: model.name,
+                estimationDate: model.estimationDate,
+                status: model.status,
+                projectId: [this.idProject]
+            };
+            this.releaseForm.setValue(setModel);
+        }
+    }
 
     ngOnInit(): void {
         this.idProject =  sessionStorage.getItem("idProject");
-        this.releaseForm = this._formBuilder.group({
-            description: [''],
-            Name: [''],
-            estimationDate: [],
-            status: [],
-            projectId: [this.idProject]
-        });
+        
     }
+
+    releaseForm = this._formBuilder.group({
+        description: [''],
+        Name: [''],
+        estimationDate: [''],
+        status: [''],
+        projectId: ['']
+    });
 
     cerrar(): void {
         this.matDialogRef.close();
@@ -38,28 +50,21 @@ export class ReleaseFormComponent implements OnInit {
    
 
     update() {
-        this.matDialogRef.close(this.releaseForm.value);
-    }
-
-    toggleChange(e: any) {
-        if (e.checked) {
-            this.textToggle = 'Liberado';
-        } else {
-            this.textToggle = 'Sin Liberar';
+        if (this.releaseForm.valid) {
+            let item: Release;
+            item = this.releaseForm.value;
+            this.updateItem(item);
         }
     }
-
     guardar() {
         if (this.releaseForm.valid) {
-            let item: any;
+            let item:  Release;
             item = this.releaseForm.value;
             this.saveItem(item);
         }
     }
 
-    
-    saveItem(item: any) {
-        debugger
+    saveItem(item: Release) {
         this._releaseService.saveRelease(item).subscribe(
             (res) => {
                 if (res) {
@@ -69,6 +74,23 @@ export class ReleaseFormComponent implements OnInit {
             },
             (error) => {
                 console.log(error);
+                this.showMessage(
+                    'Ocurrió un error, por favor intente de nuevo. ' + error.message,
+                    'error'
+                );
+            }
+        );
+    }
+
+    updateItem(item: Release) {
+        this._releaseService.updateRelease(item).subscribe(
+            (res) => {
+                if (res) {
+                    this.showMessage('El Release se creó correctamente!.', 'info');
+                    this.matDialogRef.close('Ok');
+                }
+            },
+            (error) => {
                 this.showMessage(
                     'Ocurrió un error, por favor intente de nuevo. ' + error.message,
                     'error'

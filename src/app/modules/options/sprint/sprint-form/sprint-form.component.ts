@@ -27,10 +27,10 @@ export class SprintFormComponent implements OnInit {
         this.idProject = sessionStorage.getItem('idProject');
         this.lastId =  parseInt(sessionStorage.getItem("lastId")) + 1;
         this.criteriaForm = this._formBuilder.group({
-            description: [''],
+            description: ['', Validators.required],
             name: [this.lastId],
-            startDate: ['', Validators.required],
-            endDate: ['', Validators.required],
+            startDate: [''],
+            endDate: [''],
             reviewDate: [''],
             retrospectiveDate: [''],
             projectId: [this.idProject],

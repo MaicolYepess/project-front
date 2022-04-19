@@ -5,13 +5,24 @@ import { Route, RouterModule } from '@angular/router';
 import { SprintComponent } from '../sprint/sprint.component';
 import { OptionsAppComponent } from './options-app.component';
 import { ProductStackComponent } from '../product-stack/product-stack.component';
-import { ScrumBoardComponent } from '../scrum-board/scrum-board.component';
 import { ProductStackFormComponent } from '../product-stack/product-stack-form/product-stack-form.component';
 import { ReleaseComponent } from '../release/release.component';
 import { ReleaseFormComponent } from '../release/release-form/release-form.component';
 import { SprintFormComponent } from '../sprint/sprint-form/sprint-form.component';
-import { BoardsComponent } from '../scrum-board/boards/boards/boards.component';
-import { ReviewModule } from 'app/modules/review/review.module';
+import { NewHistoryFormComponent } from '../release/new-history-form/new-history-form.component';
+import { ScrumboardBoardsComponent } from '../scrum-board/boards/boards.component';
+import { ScrumboardBoardResolver, ScrumboardBoardsResolver, ScrumboardCardResolver } from '../scrum-board/scrumboard.resolver';
+import { ScrumboardBoardComponent } from '../scrum-board/board/board.component';
+import { ScrumboardCardComponent } from '../scrum-board/card/card.component';
+import { ScrumboardBoardAddCardComponent } from '../scrum-board/board/add-card/add-card.component';
+import { ScrumboardBoardAddListComponent } from '../scrum-board/board/add-list/add-list.component';
+import { ScrumboardCardDetailsComponent } from '../scrum-board/card/details/details.component';
+import { ScrumboardComponent } from '../scrum-board/scrum-board.component';
+import { ListReviewsComponent } from 'app/modules/review/list-reviews/list-reviews.component';
+import { CreateReviewComponent } from 'app/modules/review/create-review/create-review.component';
+import { DetailReviewComponent } from 'app/modules/review/detail-review/detail-review.component';
+import { TeamComponent } from 'app/modules/team/team/team.component';
+import { SendInviteComponent } from 'app/modules/team/send-invite/send-invite.component';
 
 const exampleRoutes: Route[] = [
   {
@@ -21,7 +32,38 @@ const exampleRoutes: Route[] = [
   {
       path     : 'sprint',
       component: SprintComponent
-  }
+  },
+  {
+    path     : '',
+    component: ScrumboardBoardsComponent,
+    resolve  : {
+        boards: ScrumboardBoardsResolver
+    }
+},
+{
+    path     : ':boardId',
+    component: ScrumboardBoardComponent,
+    resolve  : {
+        board: ScrumboardBoardResolver
+    },
+    children : [
+        {
+            path     : 'card/:cardId',
+            component: ScrumboardCardComponent,
+            resolve  : {
+                card: ScrumboardCardResolver
+            }
+        }
+    ]
+},
+{
+  path     : 'detail',
+  component: DetailReviewComponent
+},
+{
+  path     : 'create',
+  component: CreateReviewComponent
+}
 ];
 
 @NgModule({
@@ -29,16 +71,27 @@ const exampleRoutes: Route[] = [
     OptionsAppComponent,
     SprintComponent,
     ProductStackComponent,
-    ScrumBoardComponent,
     ProductStackFormComponent,
     ReleaseComponent,
     ReleaseFormComponent,
-    SprintFormComponent
+    SprintFormComponent,
+    NewHistoryFormComponent,
+    ScrumboardComponent,
+    ScrumboardBoardsComponent,
+    ScrumboardBoardComponent,
+    ScrumboardBoardAddCardComponent,
+    ScrumboardBoardAddListComponent,
+    ScrumboardCardComponent,
+    ScrumboardCardDetailsComponent,
+    ListReviewsComponent,
+    DetailReviewComponent,
+    CreateReviewComponent,
+    TeamComponent,
+    SendInviteComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    ReviewModule,
     RouterModule.forChild(exampleRoutes),
   ]
 })

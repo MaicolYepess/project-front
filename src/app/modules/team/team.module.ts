@@ -8,15 +8,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Route[] = [
-  {
-    path     : '',
-    component: TeamComponent
-  }
+ 
 ];
 
 @NgModule({
   declarations: [
-    TeamComponent,
     SendInviteComponent
   ],
   imports: [

@@ -54,7 +54,7 @@
                 <mat-select formControlName="sprintId">
                     <mat-option value="">Seleccione un Sprint</mat-option>
                     <mat-option *ngFor="let sprint of sprints, i as index" [value]="sprint.id">
-                        {{ sprint.description }}
+                        Sprint {{ sprint.id.id }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -118,6 +118,7 @@
                     class="ml-auto sm:ml-0"
                     mat-stroked-button
                     (click)="cerrar()"
+                    type="button"
                 >
                     Cancelar
                 </button>

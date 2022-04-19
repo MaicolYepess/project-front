@@ -6,9 +6,17 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { Release } from 'app/core/models/release';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { NewHistoryFormComponent } from './new-history-form/new-history-form.component';
 import { ReleaseFormComponent } from './release-form/release-form.component';
 import { ReleaseService } from './release.service';
+
+export type Item = {
+    id: string;
+    name: string;
+    children: Array<Item>;
+};
 
 @Component({
     selector: 'app-release',
@@ -16,8 +24,11 @@ import { ReleaseService } from './release.service';
     styleUrls: ['./release.component.scss'],
 })
 export class ReleaseComponent implements OnInit {
+    bufferValue = 75;
+    data: Array<Release> = [];
+    invert: boolean = true;
     idProject: string;
-    releases: any;
+    releases: Release[];
     recentTransactionsDataSource: MatTableDataSource<any> =
         new MatTableDataSource();
     recentTransactionsTableColumns: string[] = [
@@ -26,8 +37,6 @@ export class ReleaseComponent implements OnInit {
         'description',
         'estimationDate',
     ];
-
-    list2 = ['drag me around 2'];
     with: '850px';
     filters: {
         categorySlug$: BehaviorSubject<string>;
@@ -46,6 +55,67 @@ export class ReleaseComponent implements OnInit {
     ngOnInit(): void {
         this.idProject = sessionStorage.getItem('idProject');
         this.getReleases();
+         this.data = [
+             {
+                 name: 'Release 1',
+                 description: 'Release de prueba',
+                 id: 'des',
+                 value: 60,
+                 children: [
+                     {
+                         description: 'Release de prueba',
+                         id: 'ds',
+                         projectId: 'ds',
+                         assignedUser: '',
+                         criteriaOfAcceptance: '',
+                         files: '',
+                         historyPoints: '',
+                         parent: '',
+                         release: 'des',
+                         sprintId: '1',
+                         title: 'Item 1',
+                         type: 'Epica',
+                     },
+                     {
+                         description: 'Release de prueba',
+                         id: 'ds',
+                         projectId: 'ds',
+                         assignedUser: '',
+                         criteriaOfAcceptance: '',
+                         files: '',
+                         historyPoints: '',
+                         parent: '',
+                         release: 'des',
+                         sprintId: '1',
+                         title: 'Item 1',
+                         type: 'Epica',
+                     },
+                 ],
+                 estimationDate: new Date(),
+                 projectId: 'ds',
+                 status: 'Activo',
+             },
+             {
+                 name: 'Release 3',
+                 description: 'Release de prueba',
+                 id: 'des',
+                 value: 30,
+                 children: [],
+                 estimationDate: new Date(),
+                 projectId: 'ds',
+                 status: 'Activo',
+             },
+             {
+                 name: 'Release 3',
+                 description: 'Release de prueba',
+                 id: 'des',
+                 value: 20,
+                 children: [],
+                 estimationDate: new Date(),
+                 projectId: 'ds',
+                 status: 'Activo',
+             },
+         ];
     }
 
     applyFilter(event: Event) {
@@ -59,41 +129,103 @@ export class ReleaseComponent implements OnInit {
         const dialogRef = this._matDialog.open(ReleaseFormComponent, {
             width: '850px',
         });
-        dialogRef.afterClosed().subscribe((data) => {});
+        dialogRef.afterClosed().subscribe((data) => {
+            debugger
+        });
+    }
+
+    openAddHistory() {
+        const dialogRef = this._matDialog.open(NewHistoryFormComponent, {
+            width: '850px',
+        });
+        dialogRef.afterClosed().subscribe((data) => {
+            debugger
+        });
+    }
+
+    openEditItem(event: Release) {
+        debugger
+        const dialogRef = this._matDialog.open(ReleaseFormComponent, {
+            width: '850px',
+            data: event
+        });
+        dialogRef.afterClosed().subscribe((data) => {
+            debugger
+        });
     }
 
     getReleases() {
         this._releasesService
             .getReleases(this.idProject)
-            .subscribe((res: any[]) => {
+            .subscribe((res: Release[]) => {
                 this.releases = res;
-                this.recentTransactionsDataSource.data = this.releases;
-                console.log(res);
+               // this.data = this.releases;
             });
     }
 
     trackByFn(index: number, item: any): any {
         return item.id || index;
     }
-    drop(event: CdkDragDrop<string[]>) {
-      debugger
-        if (event.previousContainer !== event.container) {
-            transferArrayItem(
-                event.previousContainer.data,
-                event.container.data,
-                event.previousIndex,
-                event.currentIndex
-            );
 
-            // combine here
-            if (this.releases.length > 1) {
-                this.releases[0] = this.releases[0] + ' ' + this.releases[1];
-                this.releases = [this.releases[0]];
-            } else if (this.list2.length > 1) {
-                this.list2[0] = this.list2[0] + ' ' + this.list2[1];
-                this.list2 = [this.list2[0]];
-            }
-            // then you would delete all the containers that had length 0
+    groups = [{
+        title: 'Group 1',
+        items: [{
+          name: 'Item 1 - Group 1'
+        },
+        {
+          name: 'Item 2 - Group 1'
+        },
+        {
+          name: 'Item 3 - Group 1'
+        },
+        {
+          name: 'Item 4 - Group 1'
+        }]
+      },
+      {
+        title: 'Group 2',
+        items: [{
+          name: 'Item 1 - Group 2'
+        },
+        {
+          name: 'Item 2 - Group 2'
+        },
+        {
+          name: 'Item 3 - Group 2'
+        },
+        {
+          name: 'Item 4 - Group 2'
+        }]
+      },
+      {
+        title: 'Group 3',
+        items: [{
+          name: 'Item 1 - Group 3'
+        },
+        {
+          name: 'Item 2 - Group 3'
+        },
+        {
+          name: 'Item 3 - Group 3'
+        },
+        {
+          name: 'Item 4 - Group 3'
+        }]
+      }];
+    
+      dropItem(event: CdkDragDrop<string[]>) {
+          
+        if (event.previousContainer === event.container) {
+          moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        } else {
+          transferArrayItem(event.previousContainer.data,
+            event.container.data,
+            event.previousIndex,
+            event.currentIndex);
         }
-    }
+      }
+    
+      dropGroup(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.groups, event.previousIndex, event.currentIndex);
+      }
 }

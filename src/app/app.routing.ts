@@ -26,7 +26,7 @@ export const appRoutes: Route[] = [
         ],
     },
     {
-        path: 'options/:id',
+        path: 'options',
         component: LayoutComponent,
         resolve: {
             initialData: InitialDataResolver,

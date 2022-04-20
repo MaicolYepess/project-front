@@ -72,7 +72,7 @@
                         [trackBy]="trackByFn"
                         #recentTransactionsTable
                     >
-                        <ng-container matColumnDef="actions">
+                        <!-- <ng-container matColumnDef="actions">
                             <th mat-header-cell *matHeaderCellDef>Acciones</th>
                             <td mat-cell *matCellDef="let element">
                                 <button
@@ -92,7 +92,7 @@
                                     </button>
                                 </mat-menu>
                             </td>
-                        </ng-container>
+                        </ng-container> -->
 
                         <ng-container matColumnDef="title">
                             <th
@@ -183,6 +183,23 @@
                                         >{{ transaction.parent }}</span
                                     >
                                 </span>
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-icon
+                                    class="icon-action"
+                                    [svgIcon]="'heroicons_outline:eye'"
+                                ></mat-icon
+                                >&nbsp;
+                                <mat-icon
+                                    class="icon-action"
+                                    [svgIcon]="'heroicons_outline:pencil-alt'"
+                                    (click)="openUpdate(element)"
+                                ></mat-icon>
                             </td>
                         </ng-container>
 

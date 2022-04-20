@@ -48,7 +48,7 @@ export class ProjectAdminComponent implements OnInit {
     }
 
     getProjects() {
-        this.projectService.getProjects().subscribe((res: any[]) => {
+        this.projectService.getProjects().subscribe((res: any[]) => {            
             this.projects = res;
         });
     }

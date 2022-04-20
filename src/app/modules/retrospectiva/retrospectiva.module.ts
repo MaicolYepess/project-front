@@ -6,6 +6,7 @@ import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { CreateCommitmentComponent } from './create-commitment/create-commitment.component';
 
 const routes: Route[] = [
   {
@@ -21,7 +22,8 @@ const routes: Route[] = [
 @NgModule({
   declarations: [
     ListRetrosComponent,
-    CreateRetroComponent
+    CreateRetroComponent,
+    CreateCommitmentComponent
   ],
   imports: [
     CommonModule,

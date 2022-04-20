@@ -23,6 +23,9 @@ import { CreateReviewComponent } from 'app/modules/review/create-review/create-r
 import { DetailReviewComponent } from 'app/modules/review/detail-review/detail-review.component';
 import { TeamComponent } from 'app/modules/team/team/team.component';
 import { SendInviteComponent } from 'app/modules/team/send-invite/send-invite.component';
+import { ListRetrosComponent } from 'app/modules/retrospectiva/list-retros/list-retros.component';
+import { CreateRetroComponent } from 'app/modules/retrospectiva/create-retro/create-retro.component';
+import { CreateCommitmentComponent } from 'app/modules/retrospectiva/create-commitment/create-commitment.component';
 
 const exampleRoutes: Route[] = [
   {
@@ -87,7 +90,10 @@ const exampleRoutes: Route[] = [
     DetailReviewComponent,
     CreateReviewComponent,
     TeamComponent,
-    SendInviteComponent
+    SendInviteComponent,
+    ListRetrosComponent,
+    CreateRetroComponent,
+    CreateCommitmentComponent
   ],
   imports: [
     CommonModule,

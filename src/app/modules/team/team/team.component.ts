@@ -72,4 +72,15 @@ export class TeamComponent implements OnInit, AfterViewInit {
     });
   }
 
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.members.filter = filterValue
+        .trim()
+        .toLowerCase();
+  }
+
 }

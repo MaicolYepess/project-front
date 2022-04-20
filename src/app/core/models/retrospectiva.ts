@@ -1,6 +1,7 @@
 export class Retro {
     id: string;
     sprint: string;
+    date: string;
     positiveAspects: string[];
     negativeAspects: string[];
     aspectsToImprove: string[];
@@ -10,5 +11,6 @@ export class Retro {
 export class Commitment {
     id: string;
     description: string;
+    responsible: string;
     compliment: boolean;
 }

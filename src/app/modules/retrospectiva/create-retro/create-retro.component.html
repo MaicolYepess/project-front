@@ -1,42 +1,205 @@
-<!-- <div class="flex flex-col flex-auto min-w-0">
-    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
-        <div class="flex-1 min-w-0">
-            <div class="mt-2">
-                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
-                    Nueva retrospectiva
-                </h2>
-            </div>
-        </div>
+<div  class="flex flex-col flex-auto min-w-0" cdkScrollable>
+    <div class="flex flex-row flex-auto min-w-0">
+        <mat-form-field>
+            <mat-label>Sprint</mat-label>
+            <input
+                matInput
+                [ngModel]="groups.sprint">
+        </mat-form-field>&nbsp;&nbsp;&nbsp;
+        <mat-form-field class="item-form">
+            <mat-label>Fecha de la revisión</mat-label>
+            <input [ngModel]="groups.date" matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
     </div>
-    <div cdkscrollable="" class="flex-auto p-6 sm:p-8 sm:pt-4 overflow-y-auto">
-        <div cdkdroplist="" class="cdk-drop-list flex" id="cdk-drop-list-11">
-            <div cdkdroplistgroup="" class="flex items-start">
-                <div cdkdrag="" class="cdk-drag flex-0 w-72 p-2 rounded-2xl bg-default ng-star-inserted" style="">
-                    <div class="mt-2 rounded-xl bg-gray-400 bg-opacity-12 dark:bg-transparent dark:border">
-                        <div cdkdroplist="" class="cdk-drop-list p-3 pb-0" id="a2df7786-519c-485a-a85f-c09a61cc5f37" style="">
-                            <a cdkdrag="" class="cdk-drag flex flex-col items-start mb-3 p-5 space-y-3 shadow rounded-lg overflow-hidden bg-card ng-star-inserted"></a>
-                            <a cdkdrag="" class="cdk-drag flex flex-col items-start mb-3 p-5 space-y-3 shadow rounded-lg overflow-hidden bg-card ng-star-inserted"></a>
-                        </div>
+    <div class="flex items-start" cdkDropListGroup>
+            <div class="flex-0 w-72 p-2 rounded-2xl bg-default">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center w-full py-2 px-3 rounded-md cursor-text border border-transparent focus-within:bg-white focus-within:shadow-sm focus-within:border-primary dark:focus-within:bg-gray-900" >
+                        <p class="w-full font-medium leading-5 bg-transparent">Aspectos positivos</p>
+                    </div>
+                    <div class="flex items-center justify-center min-w-6 ml-4 text-sm font-semibold leading-6 rounded-full bg-gray-300 text-secondary dark:bg-gray-700">
+                        {{ groups.positiveAspects.length }}
                     </div>
                 </div>
-                <div cdkdrag="" class="cdk-drag flex-0 w-72 p-2 rounded-2xl bg-default ng-star-inserted" style="">
-                </div>
-                <div cdkdrag="" class="cdk-drag flex-0 w-72 p-2 rounded-2xl bg-default ng-star-inserted" style="">
-                </div>
-                <div cdkdrag="" class="cdk-drag flex-0 w-72 p-2 rounded-2xl bg-default ng-star-inserted" style="">
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
+                <div
+                        class="mt-2 rounded-xl bg-gray-400 bg-opacity-12 dark:bg-transparent dark:border"
+                    >
+                        <div
+                            class="p-3 pb-0"
+                            cdkDropList
+                            [cdkDropListData]="groups.positiveAspects"
+                            (cdkDropListDropped)="dropItem($event)"
+                        >
+                            <!-- Card -->
+                            <ng-container *ngFor=" let card of groups.positiveAspects" >
+                                <div class="flex flex-col items-start mb-3 p-5 space-y-5 shadow rounded-lg overflow-hidden bg-card" cdkDrag >
+                                    <textarea
+                                    class="w-full font-medium leading-10 bg-transparent"
+                                    [spellcheck]="'false'"
+                                    [value]="card"
+                                    (keydown.enter)="listTitleInput.blur()"
+                                    #listTitleInput
+                                    ></textarea>
+                                </div>
+                            </ng-container>
+                        </div>
 
-<div cdkDropListGroup>
-    <div class="example-container" *ngFor="let group of groups">
-        <h2>{{group.title}}</h2>
-        <cdk-drop-list class="example-list" [cdkDropListData]="group.items" (cdkDropListDropped)="dropItem($event)">
-            <div class="example-box" *ngFor="let item of group.items" cdkDrag [cdkDragData]="item">
-                {{item.name}}
+                        <!-- New card -->
+                        <scrumboard-board-add-card
+                            (saved)="addCard(groups.positiveAspects, $event)"
+                            [buttonTitle]="
+                                groups.positiveAspects.length
+                                    ? 'Agregar otra tarjeta'
+                                    : 'Agregar una tarjeta'
+                            "
+                        >
+                        </scrumboard-board-add-card>
+                    </div>
             </div>
-        </cdk-drop-list>
+            <div class="flex-0 w-72 p-2 rounded-2xl bg-default">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center w-full py-2 px-3 rounded-md cursor-text border border-transparent focus-within:bg-white focus-within:shadow-sm focus-within:border-primary dark:focus-within:bg-gray-900" >
+                        <p class="w-full font-medium leading-5 bg-transparent">Aspectos negativos</p>
+                    </div>
+                    <div class="flex items-center justify-center min-w-6 ml-4 text-sm font-semibold leading-6 rounded-full bg-gray-300 text-secondary dark:bg-gray-700">
+                        {{ groups.negativeAspects.length }}
+                    </div>
+                </div>
+                <div
+                        class="mt-2 rounded-xl bg-gray-400 bg-opacity-12 dark:bg-transparent dark:border"
+                    >
+                        <div
+                            class="p-3 pb-0"
+                            cdkDropList
+                            [cdkDropListData]="groups.negativeAspects"
+                            (cdkDropListDropped)="dropItem($event)"
+                        >
+                            <!-- Card -->
+                            <ng-container *ngFor=" let card of groups.negativeAspects;" >
+                                <div class="flex flex-col items-start mb-3 p-5 space-y-5 shadow rounded-lg overflow-hidden bg-card" cdkDrag >
+                                    <textarea
+                                    class="w-full font-medium leading-10 bg-transparent"
+                                    [spellcheck]="'false'"
+                                    [value]="card"
+                                    (keydown.enter)="listTitleInput.blur()"
+                                    #listTitleInput
+                                    ></textarea>
+                                </div>
+                            </ng-container>
+                        </div>
+
+                        <!-- New card -->
+                        <scrumboard-board-add-card
+                            (saved)="addCard(groups.negativeAspects, $event)"
+                            [buttonTitle]="
+                                groups.negativeAspects.length
+                                    ? 'Agregar otra tarjeta'
+                                    : 'Agregar una tarjeta'
+                            "
+                        >
+                        </scrumboard-board-add-card>
+                    </div>
+            </div>
+            <div class="flex-0 w-72 p-2 rounded-2xl bg-default">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center w-full py-2 px-3 rounded-md cursor-text border border-transparent focus-within:bg-white focus-within:shadow-sm focus-within:border-primary dark:focus-within:bg-gray-900" >
+                        <p class="w-full font-medium leading-5 bg-transparent">Aspectos por mejorar</p>
+                    </div>
+                    <div class="flex items-center justify-center min-w-6 ml-4 text-sm font-semibold leading-6 rounded-full bg-gray-300 text-secondary dark:bg-gray-700">
+                        {{ groups.aspectsToImprove.length }}
+                    </div>
+                </div>
+                <div
+                        class="mt-2 rounded-xl bg-gray-400 bg-opacity-12 dark:bg-transparent dark:border"
+                    >
+                        <div
+                            class="p-3 pb-0"
+                            cdkDropList
+                            [cdkDropListData]="groups.aspectsToImprove"
+                            (cdkDropListDropped)="dropItem($event)"
+                        >
+                            <!-- Card -->
+                            <ng-container *ngFor=" let card of groups.aspectsToImprove" >
+                                <div class="flex flex-col items-start mb-3 p-5 space-y-5 shadow rounded-lg overflow-hidden bg-card" cdkDrag >
+                                    <textarea
+                                    class="w-full font-medium leading-10 bg-transparent"
+                                    [spellcheck]="'false'"
+                                    [value]="card"
+                                    (keydown.enter)="listTitleInput.blur()"
+                                    #listTitleInput
+                                    ></textarea>
+                                </div>
+                            </ng-container>
+                        </div>
+
+                        <!-- New card -->
+                        <scrumboard-board-add-card
+                            (saved)="addCard(groups.aspectsToImprove, $event)"
+                            [buttonTitle]="
+                                groups.aspectsToImprove.length
+                                    ? 'Agregar otra tarjeta'
+                                    : 'Agregar una tarjeta'
+                            "
+                        >
+                        </scrumboard-board-add-card>
+                    </div>
+            </div>
+            <div class="flex-0 w-72 p-2 rounded-2xl bg-default">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center w-full py-2 px-3 rounded-md cursor-text border border-transparent focus-within:bg-white focus-within:shadow-sm focus-within:border-primary dark:focus-within:bg-gray-900" >
+                        <p class="w-full font-medium leading-5 bg-transparent">Compromisos</p>
+                    </div>
+                    <div class="flex items-center justify-center min-w-6 ml-4 text-sm font-semibold leading-6 rounded-full bg-gray-300 text-secondary dark:bg-gray-700">
+                        {{ groups.commitments.length }}
+                    </div>
+                </div>
+                <div
+                        class="mt-2 rounded-xl bg-gray-400 bg-opacity-12 dark:bg-transparent dark:border"
+                    >
+                        <div
+                            class="p-3 pb-0"
+                            cdkDropList
+                            [cdkDropListData]="groups.commitments"
+                            (cdkDropListDropped)="dropItem($event)"
+                        >
+                            <!-- Card -->
+                            <ng-container *ngFor=" let card of groups.commitments; let i = index">
+                                <div class="flex flex-col items-start mb-3 p-5 space-y-5 shadow rounded-lg overflow-hidden bg-card" 
+                                style="cursor: pointer" cdkDrag 
+                                (click)="updateCommitments(card, i)"
+                                >
+                                    <p>{{card.description}}</p>
+                                    <p>{{card.responsible}}</p>
+                                    <mat-icon
+                                        class="icon-action success"
+                                        *ngIf="card.compliment"
+                                        [svgIcon]="'heroicons_outline:check-circle'"
+                                    ></mat-icon>
+                                    <mat-icon
+                                        class="icon-action failed"
+                                        *ngIf="!card.compliment"
+                                        [svgIcon]="'heroicons_outline:exclamation'"
+                                    ></mat-icon>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div (click)="addCommitment()" class="p-3 pt-0">
+                            <div class="relative flex w-full h-full rounded-lg">
+                                <button
+                                    class=""
+                                    mat-button
+                                    (click)="addCommitment()"
+                                    disableRipple>
+                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:plus-circle'"></mat-icon>
+                                    <span class="ml-2 text-secondary">{{groups.commitments.length
+                                            ? 'Agregar otra tarjeta'
+                                            : 'Agregar una tarjeta'}}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
     </div>
 </div>

@@ -47,16 +47,6 @@
             </mat-option>
             </mat-select>
         </mat-form-field>
-
-        <mat-form-field class="inputsForm">
-            <mat-label>Empresa</mat-label>
-            <mat-select formControlName="companyId">
-                <mat-option value="">Seleccione una empresa</mat-option>
-                <mat-option *ngFor="let item of companies" [value]="item.nit">
-                    {{ item.socialReason }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
      </div>
 
        <div>

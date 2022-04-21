@@ -22,7 +22,7 @@ export class SprintServiceService {
   constructor(private http: HttpClient) {}
 
   saveSprint(sprint: any) {
-      return this.http.post<Item>(`${this.endpointItem}${this.sprint}`, sprint, {
+      return this.http.post<Item>(`${this.endpoint}${this.sprint}`, sprint, {
           headers: this.headers,
       });
   }
@@ -40,7 +40,7 @@ export class SprintServiceService {
   }
 
   getSprintsProject(id: string) {
-      return this.http.get(`${this.endpointItem}${this.sprint}${'/' + id}`, {
+      return this.http.get(`${this.endpoint}${this.sprint}${'/' + id}`, {
           headers: this.headers,
       });
   }

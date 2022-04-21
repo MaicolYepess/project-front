@@ -32,7 +32,6 @@ export class ReleaseFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.idProject =  sessionStorage.getItem("idProject");
-        
     }
 
     releaseForm = this._formBuilder.group({
@@ -47,8 +46,6 @@ export class ReleaseFormComponent implements OnInit {
         this.matDialogRef.close();
     }
 
-   
-
     update() {
         if (this.releaseForm.valid) {
             let item: Release;
@@ -56,6 +53,7 @@ export class ReleaseFormComponent implements OnInit {
             this.updateItem(item);
         }
     }
+    
     guardar() {
         if (this.releaseForm.valid) {
             let item:  Release;

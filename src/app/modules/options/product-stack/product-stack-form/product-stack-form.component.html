@@ -23,8 +23,8 @@
                 <mat-label>Tipo</mat-label>
                 <mat-select formControlName="type" (selectionChange)="changeOption($event)">
                     <mat-option value="">Seleccione un Tipo</mat-option>
-                    <mat-option *ngFor="let item of types" [value]="item.id">
-                        {{ item.name }}
+                    <mat-option *ngFor="let item of types" [value]="item.name">
+                        {{ item.description }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

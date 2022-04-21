@@ -14,17 +14,19 @@ import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewHistoryFormComponent } from './modules/options/release/new-history-form/new-history-form.component';
+import { ScrumboardBoardComponent } from './modules/options/scrum-board/board/board.component';
+import { SharedModule } from './shared/shared.module';
+import { ScrumboardBoardAddListComponent } from './modules/options/scrum-board/board/add-list/add-list.component';
+import { ScrumboardBoardAddCardComponent } from './modules/options/scrum-board/board/add-card/add-card.component';
 
 const routerConfig: ExtraOptions = {
-    preloadingStrategy       : PreloadAllModules,
-    scrollPositionRestoration: 'enabled'
+    preloadingStrategy: PreloadAllModules,
+    scrollPositionRestoration: 'enabled',
 };
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
-    imports     : [
+    declarations: [AppComponent, ScrumboardBoardComponent, ScrumboardBoardAddListComponent, ScrumboardBoardAddCardComponent],
+    imports: [
         BrowserModule,
         BrowserAnimationsModule,
         RouterModule.forRoot(appRoutes, routerConfig),
@@ -39,15 +41,11 @@ const routerConfig: ExtraOptions = {
 
         // Layout module of your application
         LayoutModule,
-
+        SharedModule,
         // 3rd party modules that require global configuration via forRoot
         MarkdownModule.forRoot({}),
-         NgbModule
+        NgbModule,
     ],
-    bootstrap   : [
-        AppComponent
-    ]
+    bootstrap: [AppComponent],
 })
-export class AppModule
-{
-}
+export class AppModule {}

@@ -75,6 +75,7 @@ export class ReleaseComponent implements OnInit {
                          sprintId: '1',
                          title: 'Item 1',
                          type: 'Epica',
+                         status: ''
                      },
                      {
                          description: 'Release de prueba',
@@ -89,6 +90,7 @@ export class ReleaseComponent implements OnInit {
                          sprintId: '1',
                          title: 'Item 1',
                          type: 'Epica',
+                         status: ''
                      },
                  ],
                  estimationDate: new Date(),
@@ -139,7 +141,6 @@ export class ReleaseComponent implements OnInit {
             width: '850px',
         });
         dialogRef.afterClosed().subscribe((data) => {
-            debugger
         });
     }
 
@@ -150,7 +151,6 @@ export class ReleaseComponent implements OnInit {
             data: event
         });
         dialogRef.afterClosed().subscribe((data) => {
-            debugger
         });
     }
 
@@ -167,51 +167,7 @@ export class ReleaseComponent implements OnInit {
         return item.id || index;
     }
 
-    groups = [{
-        title: 'Group 1',
-        items: [{
-          name: 'Item 1 - Group 1'
-        },
-        {
-          name: 'Item 2 - Group 1'
-        },
-        {
-          name: 'Item 3 - Group 1'
-        },
-        {
-          name: 'Item 4 - Group 1'
-        }]
-      },
-      {
-        title: 'Group 2',
-        items: [{
-          name: 'Item 1 - Group 2'
-        },
-        {
-          name: 'Item 2 - Group 2'
-        },
-        {
-          name: 'Item 3 - Group 2'
-        },
-        {
-          name: 'Item 4 - Group 2'
-        }]
-      },
-      {
-        title: 'Group 3',
-        items: [{
-          name: 'Item 1 - Group 3'
-        },
-        {
-          name: 'Item 2 - Group 3'
-        },
-        {
-          name: 'Item 3 - Group 3'
-        },
-        {
-          name: 'Item 4 - Group 3'
-        }]
-      }];
+  
     
       dropItem(event: CdkDragDrop<string[]>) {
           
@@ -226,6 +182,6 @@ export class ReleaseComponent implements OnInit {
       }
     
       dropGroup(event: CdkDragDrop<string[]>) {
-        moveItemInArray(this.groups, event.previousIndex, event.currentIndex);
+        moveItemInArray(this.releases, event.previousIndex, event.currentIndex);
       }
 }

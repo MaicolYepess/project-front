@@ -7,12 +7,6 @@
             >
                 <div class="p-6">
                     <div
-                        class="mr-4 text-lg font-medium tracking-tight leading-6 truncate"
-                    >
-                        Sprints
-                    </div>
-                    <br />
-                    <div
                         class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none"
                     >
                         <mat-form-field
@@ -59,7 +53,7 @@
                         [trackBy]="trackByFn"
                         #recentTransactionsTable
                     >
-                        <ng-container matColumnDef="actions">
+                        <!-- <ng-container matColumnDef="actions">
                             <th mat-header-cell *matHeaderCellDef>Acciones</th>
                             <td mat-cell *matCellDef="let element">
                                 <button
@@ -79,7 +73,7 @@
                                     </button>
                                 </mat-menu>
                             </td>
-                        </ng-container>
+                        </ng-container> -->
 
                         <ng-container matColumnDef="name">
                             <th
@@ -93,7 +87,7 @@
                                 <span
                                     class="pr-6 font-medium text-sm text-secondary whitespace-nowrap"
                                 >
-                                   Sprint  {{ transaction.id.id }}
+                                    Sprint {{ transaction.id.id }}
                                 </span>
                             </td>
                         </ng-container>
@@ -142,6 +136,32 @@
                                 >
                                     {{ transaction.totalEstimate }}
                                 </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-icon
+                                    class="icon-action"
+                                    matTooltip="Editar"
+                                    [svgIcon]="'heroicons_outline:eye'"
+                                    (click)="openUpdate(element)"
+                                ></mat-icon>
+                                &nbsp;
+                                <mat-icon
+                                    class="icon-action"
+                                    matTooltip="Ver ScrumBoard"
+                                    svgIcon="heroicons_solid:view-boards"
+                                    (click)="openBoard(element)"
+                                ></mat-icon>
+                                &nbsp;
+                                <mat-icon
+                                    class="icon-action"
+                                    matTooltip="Eliminar"
+                                    [svgIcon]="'heroicons_outline:trash'"
+                                    (click)="openDelete(element)"
+                                ></mat-icon>
                             </td>
                         </ng-container>
 

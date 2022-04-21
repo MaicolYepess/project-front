@@ -38,7 +38,7 @@ export class ProjectService {
   }
   
   getStimationMethod(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.endPointItems}${this.estimation}`, {
+    return this.http.get<any[]>(`${this.endpoint}${this.estimation}`, {
         headers: this.headers,
     });
 }

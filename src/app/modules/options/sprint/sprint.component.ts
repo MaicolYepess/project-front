@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import {  Router, ActivatedRoute, ParamMap  } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 import { SprintFormComponent } from './sprint-form/sprint-form.component';
 import { SprintServiceService } from './sprint-service.service';
@@ -19,11 +20,11 @@ export class SprintComponent implements OnInit {
     recentTransactionsDataSource: MatTableDataSource<any> =
         new MatTableDataSource();
     recentTransactionsTableColumns: string[] = [
-        'actions',
         'name',
         'description',
         'startDate',
         'totalStimate',
+        'actions'
     ];
     filters: {
         categorySlug$: BehaviorSubject<string>;
@@ -37,7 +38,9 @@ export class SprintComponent implements OnInit {
     constructor(
         private _matDialog: MatDialog,
         private sprintService: SprintServiceService,
-        private router: ActivatedRoute
+        private router: ActivatedRoute,
+        private route: Router,
+        private coockie: CookieService,
     ) {}
 
     ngOnInit(): void {
@@ -50,6 +53,16 @@ export class SprintComponent implements OnInit {
         this.recentTransactionsDataSource.filter = filterValue
             .trim()
             .toLowerCase();
+    }
+
+    openBoard(e : any){
+        var encoded = btoa(JSON.stringify(e));
+        this.coockie.set("objSprint", encoded);
+        this.route.navigate(["board"]);
+    }
+
+    openUpdate(e : any){
+
     }
 
     openAddItem() {
@@ -70,16 +83,25 @@ export class SprintComponent implements OnInit {
             .getSprintsProject(this.idProject)
             .subscribe((res: any[]) => {
                 this.sprints = res;
-                this.recentTransactionsDataSource.data = this.sprints;
+                console.log(res);
+                this.recentTransactionsDataSource.data = res;
                 res.forEach(e => {
                     this.numbers.push(e.id.id);
                 });
                 this.lastId = this.getArrayMax(this.numbers);
                 sessionStorage.setItem("lastId", this.lastId.toString());
+            },
+            (error) => {
+                sessionStorage.setItem("lastId", '0');
+                this.sprints = [];
             });
     }
 
     getArrayMax(array) {
         return Math.max.apply(null, array);
+    }
+
+    openDelete(e : any){
+
     }
 }

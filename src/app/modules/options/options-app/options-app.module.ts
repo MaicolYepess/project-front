@@ -11,11 +11,6 @@ import { ReleaseFormComponent } from '../release/release-form/release-form.compo
 import { SprintFormComponent } from '../sprint/sprint-form/sprint-form.component';
 import { NewHistoryFormComponent } from '../release/new-history-form/new-history-form.component';
 import { ScrumboardBoardsComponent } from '../scrum-board/boards/boards.component';
-import { ScrumboardBoardResolver, ScrumboardBoardsResolver, ScrumboardCardResolver } from '../scrum-board/scrumboard.resolver';
-import { ScrumboardBoardComponent } from '../scrum-board/board/board.component';
-import { ScrumboardCardComponent } from '../scrum-board/card/card.component';
-import { ScrumboardBoardAddCardComponent } from '../scrum-board/board/add-card/add-card.component';
-import { ScrumboardBoardAddListComponent } from '../scrum-board/board/add-list/add-list.component';
 import { ScrumboardCardDetailsComponent } from '../scrum-board/card/details/details.component';
 import { ScrumboardComponent } from '../scrum-board/scrum-board.component';
 import { ListReviewsComponent } from 'app/modules/review/list-reviews/list-reviews.component';
@@ -25,74 +20,43 @@ import { TeamComponent } from 'app/modules/team/team/team.component';
 import { SendInviteComponent } from 'app/modules/team/send-invite/send-invite.component';
 
 const exampleRoutes: Route[] = [
-  {
-    path     : '',
-    component: OptionsAppComponent
-  },
-  {
-      path     : 'sprint',
-      component: SprintComponent
-  },
-  {
-    path     : '',
-    component: ScrumboardBoardsComponent,
-    resolve  : {
-        boards: ScrumboardBoardsResolver
-    }
-},
-{
-    path     : ':boardId',
-    component: ScrumboardBoardComponent,
-    resolve  : {
-        board: ScrumboardBoardResolver
+    {
+        path: '',
+        component: OptionsAppComponent,
     },
-    children : [
-        {
-            path     : 'card/:cardId',
-            component: ScrumboardCardComponent,
-            resolve  : {
-                card: ScrumboardCardResolver
-            }
-        }
-    ]
-},
-{
-  path     : 'detail',
-  component: DetailReviewComponent
-},
-{
-  path     : 'create',
-  component: CreateReviewComponent
-}
+    {
+        path: 'sprint',
+        component: SprintComponent,
+    },
+    {
+        path: 'detail',
+        component: DetailReviewComponent,
+    },
+    {
+        path: 'create',
+        component: CreateReviewComponent,
+    },
 ];
 
 @NgModule({
-  declarations: [
-    OptionsAppComponent,
-    SprintComponent,
-    ProductStackComponent,
-    ProductStackFormComponent,
-    ReleaseComponent,
-    ReleaseFormComponent,
-    SprintFormComponent,
-    NewHistoryFormComponent,
-    ScrumboardComponent,
-    ScrumboardBoardsComponent,
-    ScrumboardBoardComponent,
-    ScrumboardBoardAddCardComponent,
-    ScrumboardBoardAddListComponent,
-    ScrumboardCardComponent,
-    ScrumboardCardDetailsComponent,
-    ListReviewsComponent,
-    DetailReviewComponent,
-    CreateReviewComponent,
-    TeamComponent,
-    SendInviteComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    RouterModule.forChild(exampleRoutes),
-  ]
+    declarations: [
+        OptionsAppComponent,
+        SprintComponent,
+        ProductStackComponent,
+        ProductStackFormComponent,
+        ReleaseComponent,
+        ReleaseFormComponent,
+        SprintFormComponent,
+        NewHistoryFormComponent,
+        ScrumboardComponent,
+        ScrumboardBoardsComponent,
+        ScrumboardCardDetailsComponent,
+        ListReviewsComponent,
+        DetailReviewComponent,
+        CreateReviewComponent,
+        TeamComponent,
+        SendInviteComponent,
+    ],
+    imports: [CommonModule, SharedModule, RouterModule.forChild(exampleRoutes)],
 })
-export class OptionsAppModule { }
+export class OptionsAppModule {}

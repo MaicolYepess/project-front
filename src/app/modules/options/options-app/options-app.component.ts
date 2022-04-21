@@ -16,13 +16,4 @@ export class OptionsAppComponent implements OnInit {
         this.idProject = this.router.snapshot.paramMap.get('id') || 'null';
         sessionStorage.setItem("idProject", this.idProject);
     }
-
-    openScrumBoard(e : any){
-        debugger
-        
-        if(e.index === 2){
-            this._router.navigate(['/scrumboard']);
-        }
-        
-    }
 }

@@ -1,11 +1,11 @@
 export const API_RESOURCES = {
     // GET
-    project: 'api/project',
-    company: 'api/company',
-    item: 'api/item',
-    types: 'api/itemType',
-    estimationMethod: 'api/estimationMethod',
-    sprint: 'api/sprint',
-    release: 'api/release'
+    project: 'project',
+    company: 'company',
+    item: 'item',
+    types: 'itemType',
+    estimationMethod: 'estimationMethod',
+    sprint: 'sprint',
+    release: 'release'
   };
   

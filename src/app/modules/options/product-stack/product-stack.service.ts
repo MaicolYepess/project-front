@@ -23,9 +23,21 @@ export class ProductStackService {
     constructor(private http: HttpClient) {}
 
     getItems(id: any): Observable<Item[]> {
-        return this.http.get<Item[]>(`${this.endpointItem}${this.item}${'/project/' + id}`, {
-            headers: this.headers,
-        });
+        return this.http.get<Item[]>(
+            `${this.endpoint}${this.item}${'/project/' + id}`,
+            {
+                headers: this.headers,
+            }
+        );
+    }
+
+    getItemsKanban(post : any): Observable<Item[]> {
+        return this.http.post<Item[]>(
+            `${this.endpoint}${this.item}${'/getKambanItemsBySprint/'}`, post ,
+            {
+                headers: this.headers,
+            }
+        );
     }
 
     getCompanies(): Observable<any[]> {
@@ -35,13 +47,13 @@ export class ProductStackService {
     }
 
     saveItem(item: Item) {
-        return this.http.post<Item>(`${this.endpointItem}${this.item}`, item, {
+        return this.http.post<Item>(`${this.endpoint}${this.item}`, item, {
             headers: this.headers,
         });
     }
 
-    updateProject(project: Item) {
-        return this.http.put<Item>(`${this.endpoint}${this.item}`, project, {
+    updateItem(item: Item) {
+        return this.http.put<Item>(`${this.endpoint}${this.item}`, item, {
             headers: this.headers,
         });
     }
@@ -52,27 +64,21 @@ export class ProductStackService {
         });
     }
 
-    getSprintsProject(id: string) {
-        return this.http.get(`${this.endpointItem}${this.sprint}${'/' + id}`, {
-            headers: this.headers,
-        });
-    }
-
     getTypes(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.endpointItem}${this.types}`, {
+        return this.http.get<any[]>(`${this.endpoint}${this.types}`, {
             headers: this.headers,
         });
     }
 
     getEstimation(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.endpointItem}${this.stimation}`, {
+        return this.http.get<any[]>(`${this.endpoint}${this.stimation}`, {
             headers: this.headers,
         });
     }
 
-    getReleases(id : any): Observable<any> {
-         return this.http.get(`${this.endpointItem}${this.release}${'/' + id}`, {
-             headers: this.headers,
-         });
+    getReleases(id: any): Observable<any> {
+        return this.http.get(`${this.endpoint}${this.release}${'/' + id}`, {
+            headers: this.headers,
+        });
     }
 }

@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductStackService } from '../../product-stack/product-stack.service';
 import swal from 'sweetalert2';
+import { SprintServiceService } from '../../sprint/sprint-service.service';
 
 @Component({
   selector: 'app-new-history-form',
@@ -32,6 +33,7 @@ export class NewHistoryFormComponent implements OnInit {
         public matDialogRef: MatDialogRef<NewHistoryFormComponent>,
         private _formBuilder: FormBuilder,
         private _productService: ProductStackService,
+        private _sprintService: SprintServiceService,
         @Inject(MAT_DIALOG_DATA) public model: any
     ) {}
 
@@ -62,8 +64,11 @@ export class NewHistoryFormComponent implements OnInit {
     }
 
     getSprints(){
-        this._productService.getSprintsProject(this.idProject).subscribe((res: any[]) => {
+        this._sprintService.getSprintsProject(this.idProject).subscribe((res: any[]) => {
             this.sprints = res;
+        },
+        (error) => {
+            this.sprints = [];
         });
     }
 

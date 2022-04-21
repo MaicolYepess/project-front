@@ -46,7 +46,7 @@ export class ProjectFormComponent implements OnInit {
         endDate: [''],
         multipleActiveSprints: [false],
         manageTime: [false],
-        companyId: [''],
+        companyId: [],
         id: [''],
     });
     ngOnInit(): void {
@@ -79,7 +79,7 @@ export class ProjectFormComponent implements OnInit {
             project.multipleActiveSprints =
                 this.projectForm.value.multipleActiveSprints;
             project.manageTime = this.projectForm.value.manageTime;
-            project.companyId = this.projectForm.value.companyId;
+            project.companyId = 1012365874;
             console.log(project);
             this.saveCompany(project);
         }

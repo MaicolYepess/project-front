@@ -3,6 +3,8 @@ import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
+import { ScrumboardBoardComponent } from './modules/options/scrum-board/board/board.component';
+import { ScrumboardCardComponent } from './modules/options/scrum-board/card/card.component';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -40,5 +42,15 @@ export const appRoutes: Route[] = [
                     ).then((m) => m.OptionsAppModule),
             },
         ],
-    }
+    },
+    {
+        path     : 'board',
+        component: ScrumboardBoardComponent,
+        children : [
+            {
+                path     : 'card/:cardId',
+                component: ScrumboardCardComponent,
+            }
+        ]
+    },
 ];

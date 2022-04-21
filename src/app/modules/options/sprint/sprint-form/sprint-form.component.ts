@@ -25,10 +25,14 @@ export class SprintFormComponent implements OnInit {
     ngOnInit(): void {
         debugger
         this.idProject = sessionStorage.getItem('idProject');
-        this.lastId =  parseInt(sessionStorage.getItem("lastId")) + 1;
+        if (parseInt(sessionStorage.getItem('lastId'))) {
+            this.lastId = parseInt(sessionStorage.getItem('lastId')) + 1;
+        } else {
+            this.lastId = 1;
+        }
         this.criteriaForm = this._formBuilder.group({
-            description: ['', Validators.required],
             name: [this.lastId],
+            description: ['', Validators.required],
             startDate: [''],
             endDate: [''],
             reviewDate: [''],
@@ -55,7 +59,6 @@ export class SprintFormComponent implements OnInit {
     }
 
     saveSprint(sprint: any) {
-        debugger;
         this.sprintService.saveSprint(sprint).subscribe(
             (res) => {
                 if (res) {

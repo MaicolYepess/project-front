@@ -11,4 +11,5 @@ assignedUser: string;
 release: string;
 criteriaOfAcceptance: string;
 files: string;
+status:string;
 }

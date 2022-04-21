@@ -20,16 +20,6 @@
 
                 <mat-tab>
                     <ng-template mat-tab-label>
-                        <mat-icon
-                            svgIcon="heroicons_solid:view-boards"
-                        ></mat-icon>
-                        Tablero Kanban
-                    </ng-template>
-                    <scrumboard-board></scrumboard-board>
-                </mat-tab>
-
-                <mat-tab>
-                    <ng-template mat-tab-label>
                         <mat-icon svgIcon="new_releases"></mat-icon>
                         Releases
                     </ng-template>
@@ -37,14 +27,18 @@
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
-                        <mat-icon svgIcon="heroicons_outline:collection"></mat-icon>
+                        <mat-icon
+                            svgIcon="heroicons_outline:collection"
+                        ></mat-icon>
                         Reviview
                     </ng-template>
                     <app-list-reviews></app-list-reviews>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
-                        <mat-icon svgIcon="heroicons_outline:user-group"></mat-icon>
+                        <mat-icon
+                            svgIcon="heroicons_outline:user-group"
+                        ></mat-icon>
                         Equipo
                     </ng-template>
                     <app-team></app-team>

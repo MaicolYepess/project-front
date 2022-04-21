@@ -23,14 +23,14 @@ export class ReleaseService {
   constructor(private http: HttpClient) {}
 
   getItems(id: any): Observable<any[]> {
-      return this.http.get<any[]>(`${this.endpointItem}${this.item}${'/project/' + id}`, {
+      return this.http.get<any[]>(`${this.endpoint}${this.item}${'/project/' + id}`, {
           headers: this.headers,
       });
   }
 
 
   saveRelease(release: Release) {
-      return this.http.post<any>(`${this.endpointItem}${this.release}`, release, {
+      return this.http.post<any>(`${this.endpoint}${this.release}`, release, {
           headers: this.headers,
       });
   }
@@ -48,13 +48,13 @@ export class ReleaseService {
   }
 
   getSprintsProject(id: string) {
-      return this.http.get(`${this.endpointItem}${this.sprint}${'/' + id}`, {
+      return this.http.get(`${this.endpoint}${this.sprint}${'/' + id}`, {
           headers: this.headers,
       });
   }
 
   getReleases(id : any): Observable<Release[]> {
-       return this.http.get<Release[]>(`${this.endpointItem}${this.release}${'/project/' + id}`, {
+       return this.http.get<Release[]>(`${this.endpoint}${this.release}${'/project/' + id}`, {
            headers: this.headers,
        });
   }

@@ -9,6 +9,7 @@ import { Item } from 'app/core/models/item';
 import swal from 'sweetalert2';
 import { ProductStackService } from '../product-stack.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { SprintServiceService } from '../../sprint/sprint-service.service';
 
 @Component({
     selector: 'app-product-stack-form',
@@ -22,7 +23,6 @@ export class ProductStackFormComponent implements OnInit {
     types: any;
     sprints: any;
     closeResult = '';
-    itemForm: FormGroup;
     estmation: any;
     dataInTable: boolean = false;
     historyPointActivate: boolean = false;
@@ -37,8 +37,25 @@ export class ProductStackFormComponent implements OnInit {
         public matDialogRef: MatDialogRef<ProductStackFormComponent>,
         private _formBuilder: FormBuilder,
         private _productService: ProductStackService,
+        private _sprintService: SprintServiceService,
         @Inject(MAT_DIALOG_DATA) public model: Item
-    ) {}
+    ) {
+        if (this.model !== null) {
+            const setModel = {
+                description: model.description,
+                sprintId: model.sprintId,
+                type: model.type,
+                title: model.title,
+                parent: model.parent,
+                historyPoints: model.historyPoints,
+                assignedUser: model.assignedUser,
+                release: model.release,
+                criteriaOfAcceptance: model.criteriaOfAcceptance,
+                files: model.files
+            };
+            this.itemForm.setValue(setModel);
+        }
+    }
 
     ngOnInit(): void {
         this.idProject =  sessionStorage.getItem("idProject");
@@ -46,27 +63,25 @@ export class ProductStackFormComponent implements OnInit {
         this.getStimation();
         this.getSprints();
         this.getReleases();
-        this.itemForm = this._formBuilder.group({
-            projectId: [this.idProject],
-            description: [''],
-            sprintId: [''],
-            type: ['', Validators.required],
-            title: [''],
-            parent: [null],
-            historyPoints: [null],
-            assignedUser: [''],
-            release: [''],
-            criteriaOfAcceptance: [''],
-            files: [null],
-        });
+        
     }
-
+    itemForm = this._formBuilder.group({
+        description: [''],
+        sprintId: [null],
+        type: ['', Validators.required],
+        title: [''],
+        parent: [null],
+        historyPoints: [null],
+        assignedUser: [''],
+        release: [null],
+        criteriaOfAcceptance: [null],
+        files: [null]
+    });
     cerrar(): void {
         this.matDialogRef.close();
     }
 
     selectFile(event) {
-        debugger;
         this.selectedFiles = event.target.files;
     }
 
@@ -77,10 +92,11 @@ export class ProductStackFormComponent implements OnInit {
     }
 
     getSprints(){
-        this._productService.getSprintsProject(this.idProject).subscribe((res: any[]) => {
+        this._sprintService.getSprintsProject(this.idProject).subscribe((res: any[]) => {
             this.sprints = res;
-            console.log(res);
-            
+        },
+        (error) => {
+            this.sprints  = [];
         });
     }
 
@@ -94,7 +110,7 @@ export class ProductStackFormComponent implements OnInit {
 
     getTypes() {
         this._productService.getTypes().subscribe((res: any[]) => {
-            this.types = res;
+            this.types = res;            
         });
     }
 
@@ -108,50 +124,44 @@ export class ProductStackFormComponent implements OnInit {
         if (this.itemForm.valid) {
             let item: Item = new Item();
             item = this.itemForm.value;
+            item.projectId = this.idProject;
             this.saveItem(item);
         }
     }
 
     update() {
-        //   debugger
-        //   if (this.projectForm.valid) {
-        //    let project: Project = new Project();
-        //         project.projectName = this.projectForm.value.projectName;
-        //         project.description = this.projectForm.value.description;
-        //         project.estimationMethod= this.projectForm.value.estimationMethod;
-        //         project.startDate= this.projectForm.value.startDate;
-        //         project.endDate= this.projectForm.value.endDate;
-        //         project.multipleActiveSprints= this.projectForm.value.multipleActiveSprints;
-        //         project.manageTime= this.projectForm.value.manageTime;
-        //         project.companyId= this.projectForm.value.companyId;
-        //         project.id= this.model.id;
-        //        this.updateProject(project);
-        // }
+          if (this.itemForm.valid) {
+            let item: Item = new Item();
+            item = this.itemForm.value;
+            item.id = this.model.id;
+            item.projectId = this.idProject;
+            item.status = this.model.status;
+            this.updateItem(item);
+        }
     }
 
-    updateProject(item: Item) {
-        //   this.projectService.updateProject(project).subscribe(
-        //     (res) => {
-        //         if (res) {
-        //             this.showMessage(
-        //                 'El Proyecto se actualizó correctamente!.',
-        //                 'info'
-        //             );
-        //             this.matDialogRef.close();
-        //         }
-        //     },
-        //     (error) => {
-        //         console.log(error);
-        //         this.showMessage(
-        //             'Ocurrió un error, por favor intente de nuevo.',
-        //             'error'
-        //         );
-        //     }
-        // );
+    updateItem(item: Item) {
+          this._productService.saveItem(item).subscribe(
+            (res) => {
+                if (res) {
+                    this.showMessage(
+                        'El Item se actualizó correctamente!.',
+                        'info'
+                    );
+                    this.matDialogRef.close();
+                }
+            },
+            (error) => {
+                console.log(error);
+                this.showMessage(
+                    'Ocurrió un error, por favor intente de nuevo.',
+                    'error'
+                );
+            }
+        );
     }
 
     saveItem(item: Item) {
-        debugger
         this._productService.saveItem(item).subscribe(
             (res) => {
                 if (res) {

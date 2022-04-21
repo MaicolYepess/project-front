@@ -21,12 +21,12 @@ export class ProductStackComponent implements OnInit {
     recentTransactionsDataSource: MatTableDataSource<any> =
         new MatTableDataSource();
     recentTransactionsTableColumns: string[] = [
-        'actions',
         'title',
         'type',
         'assignedUser',
         'description',
         'criteriaOfAcceptance',
+        'actions',
     ];
     item: Item[] = [];
     with: '850px';
@@ -46,7 +46,7 @@ export class ProductStackComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.idProject =  sessionStorage.getItem("idProject");
+        this.idProject = sessionStorage.getItem('idProject');
         this.getItems();
     }
 
@@ -66,13 +66,32 @@ export class ProductStackComponent implements OnInit {
         });
     }
 
-    getItems() {
-        this.itemService.getItems(this.idProject).subscribe((res: any[]) => {
-            this.item = res;
-            this.recentTransactionsDataSource.data = this.item;
-            this.recentTransactionsDataSource.paginator = this.paginator;
-            this.epicaCount = res.filter((obj) => obj.type === 'Epica').length;
+    openUpdate(e: any) {
+        const dialogRef = this._matDialog.open(ProductStackFormComponent, {
+            width: '850px',
+            data: e,
         });
+        dialogRef.afterClosed().subscribe((data) => {
+            this.getItems();
+        });
+    }
+
+    openDelete(e: any) {}
+
+    getItems() {
+        this.itemService.getItems(this.idProject).subscribe(
+            (Response) => {
+                this.item = Response;
+                this.recentTransactionsDataSource.data = this.item;
+                this.recentTransactionsDataSource.paginator = this.paginator;
+                this.epicaCount = Response.filter(
+                    (obj) => obj.type === 'Epica'
+                ).length;
+            },
+            (error) => {
+                this.item = [];
+            }
+        );
     }
 
     trackByFn(index: number, item: any): any {

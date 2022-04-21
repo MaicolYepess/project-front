@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateCommitmentComponent } from './create-commitment.component';
 
-describe('SendInviteComponent', () => {
+describe('CreateCommitmentComponent', () => {
   let component: CreateCommitmentComponent;
   let fixture: ComponentFixture<CreateCommitmentComponent>;
 

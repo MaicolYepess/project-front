@@ -5,7 +5,6 @@ import { TeamMate } from 'app/core/models/team-mate';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { SendInviteComponent } from '../send-invite/send-invite.component';
 
 @Component({
   selector: 'app-team',
@@ -16,10 +15,9 @@ export class TeamComponent implements OnInit, AfterViewInit {
 
   members = new MatTableDataSource<TeamMate>([]);
   configForm: FormGroup;
-  displayedColumns: string[] = ['name', 'email', 'date', 'role', 'actions'];
+  displayedColumns: string[] = ['name', 'date', 'role', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private _fuseConfirmationService: FuseConfirmationService, private _formBuilder: FormBuilder,
-              private _matDialog: MatDialog) { }
+  constructor(private _fuseConfirmationService: FuseConfirmationService, private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.configForm = this._formBuilder.group({
@@ -44,9 +42,9 @@ export class TeamComponent implements OnInit, AfterViewInit {
       dismissible: true
     });
     this.members.data = [
-      {id: '45454', name: 'Julián Sandoval', email: 'julian.sandoval@esu.com.co', date: '30 de marzo de 2022', role: 'Scrum master'},
-      {id: '45454', name: 'Santiago Serna', email: 'santiago.serna@esu.com.co', date: '30 de marzo de 2022', role: 'Desarrollador'},
-      {id: '45454', name: 'Alejandro Sarmiento', email: 'alejandro.sarmiento@esu.com.co', date: '15 de marzo de 2022', role: 'Desarrollador'},
+      {id: '45454', name: 'Julián Sandoval', email: 'julian.sandoval@esu.com.co', date: '30 de marzo de 2022', role: '1'},
+      {id: '45454', name: 'Santiago Serna', email: 'santiago.serna@esu.com.co', date: '30 de marzo de 2022', role: '2'},
+      {id: '45454', name: 'Alejandro Sarmiento', email: 'alejandro.sarmiento@esu.com.co', date: '15 de marzo de 2022', role: '2'},
     ]
   }
 
@@ -65,22 +63,8 @@ export class TeamComponent implements OnInit, AfterViewInit {
       });
   }
 
-  openAddUser() {
-    const dialogRef = this._matDialog.open(
-        SendInviteComponent);
-    dialogRef.afterClosed().subscribe((result) => {
-    });
-  }
-
   trackByFn(index: number, item: any): any {
     return item.id || index;
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.members.filter = filterValue
-        .trim()
-        .toLowerCase();
   }
 
 }

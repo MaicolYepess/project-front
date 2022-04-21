@@ -97,4 +97,8 @@ export class ProductStackComponent implements OnInit {
     trackByFn(index: number, item: any): any {
         return item.id || index;
     }
+
+    openUpdate(e: any){
+
+    }
 }

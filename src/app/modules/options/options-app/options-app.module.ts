@@ -17,7 +17,9 @@ import { ListReviewsComponent } from 'app/modules/review/list-reviews/list-revie
 import { CreateReviewComponent } from 'app/modules/review/create-review/create-review.component';
 import { DetailReviewComponent } from 'app/modules/review/detail-review/detail-review.component';
 import { TeamComponent } from 'app/modules/team/team/team.component';
-import { SendInviteComponent } from 'app/modules/team/send-invite/send-invite.component';
+import { ListRetrosComponent } from 'app/modules/retrospectiva/list-retros/list-retros.component';
+import { CreateRetroComponent } from 'app/modules/retrospectiva/create-retro/create-retro.component';
+import { CreateCommitmentComponent } from 'app/modules/retrospectiva/create-commitment/create-commitment.component';
 
 const exampleRoutes: Route[] = [
     {
@@ -39,24 +41,35 @@ const exampleRoutes: Route[] = [
 ];
 
 @NgModule({
-    declarations: [
-        OptionsAppComponent,
-        SprintComponent,
-        ProductStackComponent,
-        ProductStackFormComponent,
-        ReleaseComponent,
-        ReleaseFormComponent,
-        SprintFormComponent,
-        NewHistoryFormComponent,
-        ScrumboardComponent,
-        ScrumboardBoardsComponent,
-        ScrumboardCardDetailsComponent,
-        ListReviewsComponent,
-        DetailReviewComponent,
-        CreateReviewComponent,
-        TeamComponent,
-        SendInviteComponent,
-    ],
     imports: [CommonModule, SharedModule, RouterModule.forChild(exampleRoutes)],
+  declarations: [
+    OptionsAppComponent,
+    SprintComponent,
+    ProductStackComponent,
+    ProductStackFormComponent,
+    ReleaseComponent,
+    ReleaseFormComponent,
+    SprintFormComponent,
+    NewHistoryFormComponent,
+    ScrumboardComponent,
+    ScrumboardBoardsComponent,
+    ScrumboardBoardComponent,
+    ScrumboardBoardAddCardComponent,
+    ScrumboardBoardAddListComponent,
+    ScrumboardCardComponent,
+    ScrumboardCardDetailsComponent,
+    ListReviewsComponent,
+    DetailReviewComponent,
+    CreateReviewComponent,
+    TeamComponent,
+    ListRetrosComponent,
+    CreateRetroComponent,
+    CreateCommitmentComponent
+  ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    RouterModule.forChild(exampleRoutes),
+  ]
 })
 export class OptionsAppModule {}

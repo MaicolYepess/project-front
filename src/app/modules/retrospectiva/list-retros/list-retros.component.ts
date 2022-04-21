@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 export class ListRetrosComponent implements OnInit {
 
   retros = new MatTableDataSource<Retro>([]);
-  displayedColumns: string[] = ['sprint', 'positiveAspects', 'negativeAspects', 'aspectsToImprove', 'commitments', 'actions'];
+  showCreateRetro = false;
+  displayedColumns: string[] = ['sprint', 'date', 'positiveAspects', 'negativeAspects', 'aspectsToImprove', 'commitments', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private route: Router) { }
 
@@ -20,26 +21,28 @@ export class ListRetrosComponent implements OnInit {
     this.retros.data = [
       {
         id: '123',
+        date: '19/04/2022',
         sprint: 'Sprint 1', 
         positiveAspects: ['aspecto 1', 'aspecto 2', 'aspecto 3'],
         negativeAspects: ['aspecto 1', 'aspecto 2', 'aspecto 3'],
         aspectsToImprove: ['aspecto 1', 'aspecto 2', 'aspecto 3'],
         commitments: [
-          {id: '345345', description: 'compromiso 1', compliment: true },
-          {id: '345345', description: 'compromiso 2', compliment: false },
-          {id: '345345', description: 'compromiso 3', compliment: true }
+          {id: '345345', description: 'compromiso 1', compliment: true, responsible: 'Santiago Serna Higuita' },
+          {id: '345345', description: 'compromiso 2', compliment: false, responsible: 'Santiago Serna Higuita' },
+          {id: '345345', description: 'compromiso 3', compliment: true, responsible: 'Santiago Serna Higuita' }
         ]
       },
       {
         id: '124',
+        date: '19/04/2022',
         sprint: 'Sprint 2', 
         positiveAspects: ['aspecto 1', 'aspecto 2', 'aspecto 3'],
         negativeAspects: ['aspecto 1', 'aspecto 2', 'aspecto 3'],
         aspectsToImprove: ['aspecto 1', 'aspecto 2', 'aspecto 3'],
         commitments: [
-          {id: '345345', description: 'compromiso 1', compliment: false },
-          {id: '345345', description: 'compromiso 2', compliment: false },
-          {id: '345345', description: 'compromiso 3', compliment: true }
+          {id: '345345', description: 'compromiso 1', compliment: false, responsible: 'Santiago Serna Higuita' },
+          {id: '345345', description: 'compromiso 2', compliment: false, responsible: 'Santiago Serna Higuita' },
+          {id: '345345', description: 'compromiso 3', compliment: true, responsible: 'Santiago Serna Higuita' }
         ]
       }
     ]
@@ -55,6 +58,17 @@ export class ListRetrosComponent implements OnInit {
 
   openUpdate() {
 
+  }
+
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.retros.filter = filterValue
+        .trim()
+        .toLowerCase();
   }
 
 }

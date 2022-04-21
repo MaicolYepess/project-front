@@ -1,6 +1,6 @@
 <div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
     <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
-        <div class="text-lg font-medium">{{"INVITAR INTEGRANTE" }}</div>
+        <div class="text-lg font-medium">{{"CREAR COMPROMISO" }}</div>
         <button
             mat-icon-button
             (click)="cerrar()"
@@ -12,25 +12,30 @@
     </div>
     <form
         class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
-        [formGroup]="userForm"
+        [formGroup]="commitmentForm"
         (submit)="save()">
 
         <mat-form-field>
-            <mat-label>Correo</mat-label>
+            <mat-label>Descripción</mat-label>
             <input
                 matInput
-                [formControlName]="'email'">
+                [formControlName]="'description'">
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Rol</mat-label>
-            <mat-select [formControlName]="'role'">
-                <mat-option  value="">Seleccione</mat-option>
-                <mat-option value="sprint1">Scrum master</mat-option>
-                <mat-option value="sprint2">Desarrollador</mat-option>
-                <mat-option value="sprint3">Product owner</mat-option>
-            </mat-select>
+            <mat-label>Responsable</mat-label>
+            <input
+                matInput
+                [formControlName]="'responsible'">
         </mat-form-field>
+
+        <div class="item-form">
+            <mat-label>Compromiso realizado: </mat-label>
+            <mat-radio-group aria-label="Select an option" [formControlName]="'compliment'">
+                <mat-radio-button class="option-radio" value="true">Sí</mat-radio-button>
+                <mat-radio-button class="option-radio"value="false">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
             <div class="flex items-end mt-4 sm:mt-0">
                 <button

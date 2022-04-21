@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Retro } from 'app/core/models/retrospectiva';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateCommitmentComponent } from '../create-commitment/create-commitment.component';
 
 @Component({
   selector: 'app-create-retro',
@@ -10,53 +13,19 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 })
 export class CreateRetroComponent implements OnInit {
 
-  groups = [{
-    title: 'Group 1',
-    items: [{
-      name: 'Item 1 - Group 1'
-    },
-    {
-      name: 'Item 2 - Group 1'
-    },
-    {
-      name: 'Item 3 - Group 1'
-    },
-    {
-      name: 'Item 4 - Group 1'
-    }]
-  },
-  {
-    title: 'Group 2',
-    items: [{
-      name: 'Item 1 - Group 2'
-    },
-    {
-      name: 'Item 2 - Group 2'
-    },
-    {
-      name: 'Item 3 - Group 2'
-    },
-    {
-      name: 'Item 4 - Group 2'
-    }]
-  },
-  {
-    title: 'Group 3',
-    items: [{
-      name: 'Item 1 - Group 3'
-    },
-    {
-      name: 'Item 2 - Group 3'
-    },
-    {
-      name: 'Item 3 - Group 3'
-    },
-    {
-      name: 'Item 4 - Group 3'
-    }]
-  }];
+  groups: Retro = {
+    id: '1',
+    date: '',
+    sprint: '',
+    positiveAspects: [
+      
+    ],
+    negativeAspects: [],
+    aspectsToImprove: [],
+    commitments: []
+  };
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private _matDialog: MatDialog) { }
 
   ngOnInit(): void {
     
@@ -71,5 +40,30 @@ export class CreateRetroComponent implements OnInit {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }
   }
+
+  addCard(group, description: string): void {
+    group.push(description);
+  }
+
+  updateCommitments(commitment, index) {
+    const dialogRef = this._matDialog.open(
+      CreateCommitmentComponent, {data: commitment});
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.groups.commitments[index] = result;
+        }
+    });
+  }
+
+  addCommitment() {
+    const dialogRef = this._matDialog.open(
+      CreateCommitmentComponent);
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.groups.commitments.push(result);
+        }
+    });
+  }
+
 
 }

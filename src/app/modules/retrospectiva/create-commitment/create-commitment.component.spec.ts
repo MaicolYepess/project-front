@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SendInviteComponent } from './send-invite.component';
+import { CreateCommitmentComponent } from './create-commitment.component';
 
-describe('SendInviteComponent', () => {
-  let component: SendInviteComponent;
-  let fixture: ComponentFixture<SendInviteComponent>;
+describe('CreateCommitmentComponent', () => {
+  let component: CreateCommitmentComponent;
+  let fixture: ComponentFixture<CreateCommitmentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SendInviteComponent ]
+      declarations: [ CreateCommitmentComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SendInviteComponent);
+    fixture = TestBed.createComponent(CreateCommitmentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

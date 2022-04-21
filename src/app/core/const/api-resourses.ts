@@ -1,5 +1,4 @@
 export const API_RESOURCES = {
-    // GET
     project: 'project',
     company: 'company',
     item: 'item',

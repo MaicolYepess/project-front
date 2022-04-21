@@ -102,6 +102,8 @@ export class SprintComponent implements OnInit {
     }
 
     openDelete(e : any){
+    }
+    openUpdate(e:any){
 
     }
 }
